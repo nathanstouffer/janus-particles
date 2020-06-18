@@ -46,3 +46,5 @@ There should be no blank lines in *.config* and no spaces between a property and
 |PERCEIVED_WEIGHT=X    |float   (w in 1/(w\*d) where d is distance between agents)                      |
 |THRESHOLD=X           |float   (perception threshold to move forward)                                  |
 |VELOCITY=X            |float   (forward velocity of activated agents)                                  |
+
+Note: sha256(AgentSimulator.jar) = 6efba21ecfc70d19e73532013c19e4846e21630693633592bb8f46e52007d381
