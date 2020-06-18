@@ -174,7 +174,7 @@ public class Environment extends JComponent {
     */
     public void beginSim() throws FileNotFoundException {
         // write to info.txt
-        infoToFile();
+        headerToFile();
         // set environment variables
         iterations = 0;  start = System.currentTimeMillis();
         // write initial state to csv
@@ -228,9 +228,9 @@ public class Environment extends JComponent {
     }
     
     /* method to output the header to a file */
-    private void infoToFile() throws FileNotFoundException {
+    private void headerToFile() throws FileNotFoundException {
         // set up strings for output
-        String file_name = "info.txt";
+        String file_name = "header.txt";
         String output = "This file contains the simulation information for the environment states recorded in this directory."
                             + "\nBelow are the initial conditions.";
         
@@ -280,7 +280,7 @@ public class Environment extends JComponent {
         
         // variables for environment
         output += iterations + "," + time;
-        output += "\nid,x,y,theta,active";
+        //output += "\nid,x,y,theta,active"; // not sure if should include this
         // output each agent to a file
         for (int a = 0; a < agents.length; a++) {
             output += "\n" + agents[a].fileInfo();

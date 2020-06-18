@@ -17,15 +17,15 @@ import javax.swing.JFrame;
  *
  */
 public class Client {
-    
+
     // static methods to make changing color easy
     private final static Color default_color = new Color(0,0,0);
     private final static Color background_color = new Color(255,255,255);
     public static Color getDefaultColor() { return default_color; }
-    
+
     // output directory - should be provided as a command line arg
     private static String dir;
-    
+
     // the following should all be read in from the config file
     // simulation settings
     private static int MAX_ITER;
@@ -43,43 +43,42 @@ public class Client {
     private static double perceived_weight;
     private static double threshold;
     private static double velocity;
-    
-    
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        // check command line args
-        // directory name
-        dir = "PLACEHOLDER_NAME";
-        
+        // check command line args for directory name
+        dir = args[0];
+
         // read in configuration from file
         readConfig();
-        
+
         // run simulation
         simulate();
     }
-    
+
     /* method to run the simulation */
     private static void simulate() throws IOException {
         // set static variables for Environment
         int width = 480;              int height = 480;
         Environment.setWidth(width);  Environment.setHeight(height);
         // create environment
-        Environment env = new Environment(num_agents, threshold, alpha, perceived_weight, velocity, 
+        Environment env = new Environment(num_agents, threshold, alpha, perceived_weight, velocity,
                                             pos_stdv, ang_stdv, init_state, dir);
-        
+
         // set up window
         JFrame window = new JFrame();
-        if (GRAPHICS != 0) { 
+        if (GRAPHICS != 0) {
             window = initWindow(width, height);
             // add the environment to be depicted
             window.add(env);
         }
-        
+
         // begin simulation
         env.beginSim();
-        
+
         // loop for MAX_ITER iterations
         for (int iter = 1; iter <= MAX_ITER; iter++) {
             // move agents
@@ -91,12 +90,12 @@ public class Client {
             // display graphics (when necessary)
             if (GRAPHICS != 0 && iter % GRAPHICS == 0) { window.repaint(); }
         }
-        
+
         // terminate simulation
         env.terminateSim();
     }
-    
-    /* method to read in the .config file 
+
+    /* method to read in the .config file
      * format is expected to be
      * MAX_ITER=            - integer (maximum number of iterations for simulation)
      * STATE=               - integer (interval for writing state to file; 0 => only initial and final)
@@ -114,10 +113,10 @@ public class Client {
     private static void readConfig() throws FileNotFoundException, IOException {
         // create file
         File config_file = new File(dir + "/.config");
-        
+
         // create buffered reader
         BufferedReader br = new BufferedReader(new FileReader(config_file));
-        
+
         // read configuration
         MAX_ITER = Integer.parseInt(value(br.readLine()));             // read in MAX_ITER
         STATE = Integer.parseInt(value(br.readLine()));                // read in state interval
@@ -131,20 +130,20 @@ public class Client {
         perceived_weight = Double.parseDouble(value(br.readLine()));   // read in perceived weight
         threshold = Double.parseDouble(value(br.readLine()));          // read in perception threshold
         velocity = Double.parseDouble(value(br.readLine()));           // read in velocity of active particles
-        
+
         // close buffered reader
         br.close();
-        
+
         // exit if config is invalid
         if (!validConfig()) {
             System.err.println("Invalid configuration");
             System.exit(1);
         }
     }
-    
+
     /* method to return the value from a string of the form *=* */
-    private static String value(String line) { return line.split("=")[1]; }
-    
+    private static String value(String line) { return line.split("=")[1].trim(); }
+
     /* method to check if the configuration is valid - error messages are printed to the console */
     private static boolean validConfig(){
         boolean valid = true;
@@ -175,7 +174,7 @@ public class Client {
         // return validity of configuration
         return valid;
     }
-    
+
     /* method to initialize the window */
     private static JFrame initWindow(int width, int height) {
         JFrame window = new JFrame();
@@ -191,5 +190,5 @@ public class Client {
         // return window
         return window;
     }
-    
+
 }
