@@ -6,7 +6,7 @@ The project was done in collaboration with Griffin Smith and Dr. Dominique Zosso
 
 The code in this repository runs a simulation involving *n* agents in the plane.
 Each agent has a
- * position *(x,y) \in [0,1]<sup>2</sup>* 
+ * position *(x,y) \in [0,1]<sup>2</sup>*
  * orientation *\theta \in [0,2pi)*
  * half-angle *\alpha \in [0,pi]* that creates a field of view (picture shown for clarification)
 
@@ -17,7 +17,7 @@ For agent *a* to percieve agent *b*, *b* must be in *a's* field of view, then th
 The system begins at a state and iterates the positions of each agent according to the following rules:
  1. Randomly perturb the position and orientation of each agent
  1. If total perception (summed perception with all other agents) is greater than *p*, move forward with velocity *v*
- 
+
 The system then iterates until a cap.
 The goal of this research is to discover the emergent behavior of the agents based on the initial conditions.
 
@@ -27,11 +27,11 @@ This repository contains the following directories.
  * exploring-options/ - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * img/ - contains images for the repository and papers
  * knowledge/ - contains reference papers
- 
+
 Run the program with *java -jar AgentSimulator.jar \<DIRECTORY\>* on the command line where \<DIRECTORY\> is the output directory.
 \<DIRECTORY\> should already exist and contain a file called *.config* that has the information shown in the following table.
 There should be no blank lines in *.config* and no spaces between a property and its value (what you should do: MAX_ITER=10000).
- 
+
 |                      |                                                                                |
 |----------------------|--------------------------------------------------------------------------------|
 |MAX_ITER=X            |integer (maximum number of iterations for simulation)                           |
@@ -42,9 +42,9 @@ There should be no blank lines in *.config* and no spaces between a property and
 |POS_STDV=X            |float   (standard deviation for generating position deltas from a Gaussian)     |
 |ANG_STDV=X            |float   (standard deviation for generating angle deltas from a Gaussian)        |
 |NUM_AGENTS=X          |integer (number of agents in the system)                                        |
-|ALPHA=X                 |float   (half-angle alpha for the field-of-view)                                | 
+|ALPHA=X                 |float   (half-angle alpha for the field-of-view)                                |
 |PERCEIVED_WEIGHT=X    |float   (w in 1/(w\*d) where d is distance between agents)                      |
 |THRESHOLD=X           |float   (perception threshold to move forward)                                  |
 |VELOCITY=X            |float   (forward velocity of activated agents)                                  |
 
-Note: sha256(AgentSimulator.jar) = 77db9f6f6078993b9468cd382db6e56098f00197fea702bc994c3e54ec39af2d
+Note: sha256(AgentSimulator.jar) = 52667a7776656e8d5884a49f4f4ea21f5478510b4f90c490f9f48a239b477fd3

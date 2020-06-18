@@ -5,6 +5,7 @@ There are few types of files in this directory.
  * **log** - File logging the program status throughout the simulation.
  * **header** - File containing the initial conditions for the simulation.
  * **state** - File containing the state of the system at a number of iterations (file names are *init.csv, final.csv,* and *INTEGER.csv*). Each state file is of the form
+
         iterations,time
         1,x_1,y_1,theta_1,active_1
         2,x_2,y_2,theta_2,active_2
