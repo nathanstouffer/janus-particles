@@ -67,12 +67,12 @@ public class Environment extends JComponent {
      *              - anything else is interpreted as a file name
      * _output_dir: output directory name
     */
-    Environment(int _num_agents, double _alpha, double _dist_scale,
+    Environment(int _num_agents, double _alpha, double _perceived_weight,
                     double _threshold, double _velocity,
                     double _pos_stdv, double _ang_stdv, 
                     String _init_state, String _output_dir) throws FileNotFoundException, IOException {
         // set class attributes
-        num_agents = _num_agents;  alpha = _alpha;        perceived_weight = _dist_scale;
+        num_agents = _num_agents;  alpha = _alpha;        perceived_weight = _perceived_weight;
         threshold = _threshold;    velocity  = _velocity;
         pos_stdv = _pos_stdv;      ang_stdv = _ang_stdv;
         // output directory and log file

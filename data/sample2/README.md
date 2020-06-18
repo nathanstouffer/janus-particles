@@ -18,7 +18,7 @@ This table contains the initial conditions.
 | Property     | Value     |
 |--------------|-----------|
 |NUM_AGENTS|10|
-|ALPHA| 5.0|
-|PERCEIVED_WEIGHT|0.78539816339|
-|THRESHOLD|0.15915494309|
+|ALPHA| 0.78539816339|
+|PERCEIVED_WEIGHT|0.15915494309|
+|THRESHOLD|5.0|
 |VELOCITY|1.0E-4|
