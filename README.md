@@ -27,7 +27,7 @@ This repository contains the following directories.
  * exploring-options/ - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * AgentSimulator/ - Java code that implements the simulation with all necessary parameters
  
-Run the program with *java -jar AgentSimulator.jar \<Directory\>* on the command line where \<DIRECTORY\> is the output directory.
+Run the program with *java -jar AgentSimulator.jar \<DIRECTORY\>* on the command line where \<DIRECTORY\> is the output directory.
 \<DIRECTORY\> should already exist and contain a file called *.config* that has the information shown in the following table.
 There should be no blank lines in *.config* and no spaces between a property and its value (what you should do: MAX_ITER=10000).
  
