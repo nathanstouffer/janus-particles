@@ -26,6 +26,7 @@ This repository contains the following directories.
  * knowledge/ - contains reference papers
  * exploring-options/ - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * AgentSimulator/ - Java code that implements the simulation with all necessary parameters
+ * data - contains the output for the simulation runs
  
 Run the program with *java -jar AgentSimulator.jar \<DIRECTORY\>* on the command line where \<DIRECTORY\> is the output directory.
 \<DIRECTORY\> should already exist and contain a file called *.config* that has the information shown in the following table.
