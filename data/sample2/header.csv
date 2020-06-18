@@ -1,0 +1,6 @@
+
+num_agents,10
+alpha,5.0
+perceived_weight,0.78539816339
+threshold,0.15915494309
+velocity,1.0E-4

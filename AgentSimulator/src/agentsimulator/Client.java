@@ -105,7 +105,7 @@ public class Client {
      * POS_STDV=            - double  (standard deviation for generating position deltas from a Gaussian)
      * ANG_STDV=            - double  (standard deviation for generating angle deltas from a Gaussian)
      * NUM_AGENTS=          - integer (number of agents in the system)
-     * FOV=                 - double  (half-angle alpha for the field-of-view)
+     * ALPHA=               - double  (half-angle alpha for the field-of-view)
      * PERCEIVED_WEIGHT=    - double  (w in 1/(w*d) where d is distance between agents)
      * THRESHOLD=           - double  (perception threshold to move forward)
      * VELOCITY=            - double  (forward velocity of activated agents)
@@ -164,7 +164,7 @@ public class Client {
         // check for problem with number of agents
         if (num_agents < 0) { System.err.println("NUM_AGENTS must be nonnegative"); valid = false; }
         // check for problem with alpha
-        if (alpha < 0) { System.err.println("FOV must be nonnegative"); valid = false; }
+        if (alpha < 0) { System.err.println("ALPHA must be nonnegative"); valid = false; }
         // check for problem with perceived weight
         if (perceived_weight < 0) { System.err.println("PERCEIVED_WEIGHT must be nonnegative"); valid = false; }
         // check for problem with threshold

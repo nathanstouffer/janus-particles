@@ -173,8 +173,8 @@ public class Environment extends JComponent {
      * this will create info.txt, write an initial state to a csv, and begin the log file
     */
     public void beginSim() throws FileNotFoundException {
-        // write to info.txt
-        headerToFile();
+        // write to readme and header file
+        writeReadme();  headerToFile();
         // set environment variables
         iterations = 0;  start = System.currentTimeMillis();
         // write initial state to csv
@@ -227,23 +227,39 @@ public class Environment extends JComponent {
         System.out.print(log_line);
     }
     
-    /* method to output the header to a file */
-    private void headerToFile() throws FileNotFoundException {
+    /* method to write a README for this directory
+     * this will make it easier for humans to understand the contents of the directory
+     */
+    private void writeReadme() throws FileNotFoundException {
         // set up strings for output
-        String file_name = "header.txt";
-        String output = "This file contains the simulation information for the environment states recorded in this directory."
-                            + "\nBelow are the initial conditions.";
+        String file_name = "README.md";
+        String output = "This README contains information for the simulation output in this directory.";
+        
+        // extra info for the readme
+        output += "\n\nThere are few types of files in this directory."
+                + "\n * **config** - File that the jar accessed to get simulation information "
+                        + "(ie initial conditions). All information to run a simulation can be found there."
+                + "\n * **log** - File logging the program status throughout the simulation."
+                + "\n * **header** - File containing the initial conditions for the simulation."
+                + "\n * **state** - File containing the state of the system at a number of iterations (file names are "
+                        + "*init.csv, final.csv,* and *INTEGER.csv*). Each state file is of the form"
+                        + "\n        iterations,time"
+                        + "\n        1,x_1,y_1,theta_1,active_1"
+                        + "\n        2,x_2,y_2,theta_2,active_2"
+                        + "\n         :" 
+                        + "\n         :"
+                        + "\n        n,x_n,y_n,theta_n,active_n";
+        
+        output += "\n\nThis table contains the initial conditions.\n";
         
         // populate output string
-        output += "\nnum_agents," + num_agents;
-        output += "\nalpha,"      + alpha;
-        output += "\ndist_scale," + perceived_weight;
-        output += "\nthreshold,"  + threshold;
-        output += "\nvelocity,"   + velocity;
-                
-        // extra info for the header file
-        output += "\n\nThe first line of state files is how many iterations as well as how much time has passed."
-                   + "\nSubsequent lines are of the form id,x,y,theta,active\n";
+        output += "\n| Property     | Value     |";
+        output += "\n|--------------|-----------|";
+        output += "\n|NUM_AGENTS|" + num_agents + "|";
+        output += "\n|ALPHA| " + alpha + "|";
+        output += "\n|PERCEIVED_WEIGHT|" + perceived_weight + "|";
+        output += "\n|THRESHOLD|" + threshold + "|";
+        output += "\n|VELOCITY|" + velocity + "|";
         
         // set output file
         File fout = new File(output_dir + "/" + file_name);
@@ -254,7 +270,37 @@ public class Environment extends JComponent {
         fout.setReadOnly();
         
         // construct log line
-        String log_line = "Initial conditions written to file"; // first line of log file so no \n
+        String log_line = "README written to file"; // first line of log file so no \n
+        // write to log file
+        writer = new PrintWriter(new FileOutputStream(log_file));
+        writer.append(log_line);
+        writer.close();
+        // write log line to console
+        System.out.print(log_line);
+    }
+    
+    /* method to output the header to a file */
+    private void headerToFile() throws FileNotFoundException {
+        String file_name = "header.csv";
+        String output = "";
+        
+        // populate output string
+        output += "\nnum_agents," + num_agents;
+        output += "\nalpha,"      + alpha;
+        output += "\nperceived_weight," + perceived_weight;
+        output += "\nthreshold,"  + threshold;
+        output += "\nvelocity,"   + velocity;
+        
+        // set output file
+        File fout = new File(output_dir + "/" + file_name);
+        PrintWriter writer = new PrintWriter(new FileOutputStream(fout));
+        writer.write(output);
+        writer.close();
+        // set file as read only
+        fout.setReadOnly();
+        
+        // construct log line
+        String log_line = "header written to file"; // first line of log file so no \n
         // write to log file
         writer = new PrintWriter(new FileOutputStream(log_file));
         writer.append(log_line);
