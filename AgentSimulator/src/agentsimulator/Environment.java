@@ -32,6 +32,11 @@ public class Environment extends JComponent {
     private final String output_dir;
     // log file object
     private final File log_file;
+    // file containing initial state (r => random distribution)
+    private final String init_state;
+    
+    // maximum number of iterations (never used in code, just for output)
+    private final int MAX_ITER;
     
     // random number generator
     private final Random rand;
@@ -69,7 +74,7 @@ public class Environment extends JComponent {
     */
     Environment(int _num_agents, double _alpha, double _perceived_weight,
                     double _threshold, double _velocity,
-                    double _pos_stdv, double _ang_stdv, 
+                    double _pos_stdv, double _ang_stdv, int _MAX_ITER,
                     String _init_state, String _output_dir) throws FileNotFoundException, IOException {
         // set class attributes
         num_agents = _num_agents;  alpha = _alpha;        perceived_weight = _perceived_weight;
@@ -77,6 +82,8 @@ public class Environment extends JComponent {
         pos_stdv = _pos_stdv;      ang_stdv = _ang_stdv;
         // output directory and log file
         output_dir = _output_dir;  log_file = new File(output_dir + "/.log");
+        // initial state file and max iterations
+        init_state = _init_state;  MAX_ITER = _MAX_ITER;
         // throwaway values for iterations and time
         iterations = -1;  start = -1;
         // set static variables in Agent class
@@ -86,7 +93,7 @@ public class Environment extends JComponent {
         // set up data
         bbox = new BBox(WIDTH, HEIGHT);                             // init bounding box
         rand = new Random(System.currentTimeMillis());              // init random
-        initAgents(_init_state);                                    // initialize agents
+        initAgents();                                    // initialize agents
     }
     
     /* method to move the agents (random movement as well as rule movement) */
@@ -148,13 +155,13 @@ public class Environment extends JComponent {
      *                - r means distribute generate all values randomly
      *                - anything else is interpreted as a file name
      */
-    private void initAgents(String init_states) throws FileNotFoundException, IOException {
+    private void initAgents() throws FileNotFoundException, IOException {
         // set characteristics in Agent class
         Agent.setWidth(WIDTH);
         Agent.setHeight(HEIGHT);
         agents = new Agent[num_agents];
         // if initial state is randomly distributed
-        if (init_states.equals("r")) {
+        if (init_state.equals("r")) {
             double x, y, theta;
             for (int a = 0; a < agents.length; a++) {
                 // generate attributes
@@ -165,7 +172,7 @@ public class Environment extends JComponent {
             }
         }
         // otherwise interpret init_states as a file
-        else { stateFromFile(init_states); }
+        else { stateFromFile(init_state); }
     }
     
     /* method to begin the simulation
@@ -255,11 +262,15 @@ public class Environment extends JComponent {
         // populate output string
         output += "\n| Property     | Value     |";
         output += "\n|--------------|-----------|";
-        output += "\n|NUM_AGENTS|" + num_agents + "|";
-        output += "\n|ALPHA| " + alpha + "|";
+        output += "\n|MAX_ITER|"         + MAX_ITER         + "|";
+        output += "\n|INITIAL_STATE|"    + init_state       + "|";
+        output += "\n|POS_STDV|"         + pos_stdv         + "|";
+        output += "\n|ANG_STDV|"         + ang_stdv         + "|";
+        output += "\n|NUM_AGENTS|"       + num_agents       + "|";
+        output += "\n|ALPHA| "           + alpha            + "|";
         output += "\n|PERCEIVED_WEIGHT|" + perceived_weight + "|";
-        output += "\n|THRESHOLD|" + threshold + "|";
-        output += "\n|VELOCITY|" + velocity + "|";
+        output += "\n|THRESHOLD|"        + threshold        + "|";
+        output += "\n|VELOCITY|"         + velocity         + "|";
         
         // set output file
         File fout = new File(output_dir + "/" + file_name);
@@ -285,11 +296,15 @@ public class Environment extends JComponent {
         String output = "";
         
         // populate output string
-        output += "\nnum_agents," + num_agents;
-        output += "\nalpha,"      + alpha;
+        output += "max_iter,"         + MAX_ITER;
+        output += "\ninitial_state,"    + init_state;
+        output += "\npos_stdv,"         + pos_stdv;
+        output += "\nang_stdv,"         + ang_stdv;
+        output += "\nnum_agents,"       + num_agents;
+        output += "\nalpha,"            + alpha;
         output += "\nperceived_weight," + perceived_weight;
-        output += "\nthreshold,"  + threshold;
-        output += "\nvelocity,"   + velocity;
+        output += "\nthreshold,"        + threshold;
+        output += "\nvelocity,"         + velocity;
         
         // set output file
         File fout = new File(output_dir + "/" + file_name);

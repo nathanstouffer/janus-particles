@@ -42,9 +42,9 @@ There should be no blank lines in *.config* and no spaces between a property and
 |POS_STDV=X            |float   (standard deviation for generating position deltas from a Gaussian)     |
 |ANG_STDV=X            |float   (standard deviation for generating angle deltas from a Gaussian)        |
 |NUM_AGENTS=X          |integer (number of agents in the system)                                        |
-|ALPHA=X                 |float   (half-angle alpha for the field-of-view)                                |
+|ALPHA=X               |float   (half-angle alpha for the field-of-view)                                |
 |PERCEIVED_WEIGHT=X    |float   (w in 1/(w\*d) where d is distance between agents)                      |
 |THRESHOLD=X           |float   (perception threshold to move forward)                                  |
 |VELOCITY=X            |float   (forward velocity of activated agents)                                  |
 
-Note: sha256(AgentSimulator.jar) = 2c7d44fa4ee3e638c423f2ef232dc01e88a3da9c9f67aac5ad85c19cebaea39a
+Note: sha256(AgentSimulator.jar) = 5408aa05a486d129004f536ff7dbf4f54d5e8a34d43c5e5ec4e863f768b54608

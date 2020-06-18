@@ -66,7 +66,7 @@ public class Client {
         Environment.setWidth(width);  Environment.setHeight(height);
         // create environment
         Environment env = new Environment(num_agents, alpha, perceived_weight, threshold, velocity,
-                                            pos_stdv, ang_stdv, init_state, dir);
+                                            pos_stdv, ang_stdv, MAX_ITER, init_state, dir);
 
         // set up window
         JFrame window = new JFrame();
