@@ -18,10 +18,30 @@ The system begins at a state and iterates the positions of each agent according 
  1. Randomly perturb the position and orientation of each agent
  1. If total perception (summed perception with all other agents) is greater than *p*, move forward with velocity *v*
  
-The system then iterates until a cap or convergence.
+The system then iterates until a cap.
 The goal of this research is to discover the emergent behavior of the agents based on the initial conditions.
 
 This repository contains the following directories.
  * img/ - contains images for the repository and papers
  * knowledge/ - contains reference papers
  * exploring-options/ - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
+ * AgentSimulator/ - Java code that implements the simulation with all necessary parameters
+ 
+Run the program with *insert command line* on the command line where \<DIRECTORY\> is the output directory.
+\<DIRECTORY\> should already exist and contain a file called *.config* that has the information shown in the following table.
+There should be no blank lines in *.config* and no spaces between a property and its value (what you should do: MAX_ITER=10000).
+ 
+|                      |                                                                                |
+|----------------------|--------------------------------------------------------------------------------|
+|MAX_ITER=X            |integer (maximum number of iterations for simulation)                           |
+|STATE=X               |integer (interval for writing state to file; 0 => only initial and final)       |
+|LOG=X                 |integer (interval for writing to console/log; 0 => minimal logging)             |
+|GRAPHICS=X            |integer (interval for updating graphics window; 0 => no graphics)               |
+|INITIAL_STATE=X       |string  (r => random distribution; anything else is interpreted as a file name) |
+|POS_STDV=X            |float   (standard deviation for generating position deltas from a Gaussian)     |
+|ANG_STDV=X            |float   (standard deviation for generating angle deltas from a Gaussian)        |
+|NUM_AGENTS=X          |integer (number of agents in the system)                                        |
+|FOV=X                 |float   (half-angle alpha for the field-of-view)                                | 
+|PERCEIVED_WEIGHT=X    |float   (w in 1/(w\*d) where d is distance between agents)                      |
+|THRESHOLD=X           |float   (perception threshold to move forward)                                  |
+|VELOCITY=X            |float   (forward velocity of activated agents)                                  |
