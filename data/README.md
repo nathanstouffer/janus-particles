@@ -1,6 +1,5 @@
-This README contains information for the simulation output directories.
+Each subdirectory contains the following files
 
-Each directory contains the following files
  * **README.md** - File containing initial conditions in a readable format.
  * **.config** - File the jar accessed for simulation info (ie initial conditions).
  * **.log** - File logging the program status throughout the simulation.
