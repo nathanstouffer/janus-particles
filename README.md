@@ -23,7 +23,7 @@ The goal of this research is to discover the emergent behavior of the agents bas
 
 This repository contains the following directories.
  * AgentSimulator/ - Java code that implements the simulation with all necessary parameters
- * data - contains the output for the simulation runs
+ * data/ - contains the output for the simulation runs
  * exploring-options/ - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * img/ - contains images for the repository and papers
  * knowledge/ - contains reference papers
