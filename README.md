@@ -47,4 +47,4 @@ There should be no blank lines in *.config* and no spaces between a property and
 |THRESHOLD=X           |float   (perception threshold to move forward)                                  |
 |VELOCITY=X            |float   (forward velocity of activated agents)                                  |
 
-Note: sha256(AgentSimulator.jar) = 5408aa05a486d129004f536ff7dbf4f54d5e8a34d43c5e5ec4e863f768b54608
+Note: sha256(AgentSimulator.jar) = 54d720f76abcc6ab6216add67f81628d0781cbd6c235db8fc2ced9bd46cb367c

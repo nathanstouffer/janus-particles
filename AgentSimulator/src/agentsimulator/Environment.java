@@ -240,7 +240,11 @@ public class Environment extends JComponent {
     private void writeReadme() throws FileNotFoundException {
         // set up strings for output
         String file_name = "README.md";
-        String output = "This README contains information for the simulation output in this directory.";
+        String output = "";
+        
+        // this code block contains info that was put in the README one directory up
+        // kept this code in case we changed our mind
+        /*String output = "This README contains information for the simulation output in this directory.";
         
         // extra info for the readme
         output += "\n\nThere are few types of files in this directory."
@@ -255,9 +259,9 @@ public class Environment extends JComponent {
                         + "\n        2,x_2,y_2,theta_2,active_2"
                         + "\n         :" 
                         + "\n         :"
-                        + "\n        n,x_n,y_n,theta_n,active_n";
+                        + "\n        n,x_n,y_n,theta_n,active_n\n\n";*/
         
-        output += "\n\nThis table contains the initial conditions.\n";
+        output += "Initial conditions for this run\n";
         
         // populate output string
         output += "\n| Property     | Value     |";
