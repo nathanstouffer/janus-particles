@@ -32,7 +32,7 @@ Run the program with *java -jar AgentSimulator.jar \<DIRECTORY\>* on the command
 \<DIRECTORY\> should already exist and contain a file called *.config* that has the information shown in the following table.
 There should be no blank lines in *.config* and no spaces between a property and its value (what you should do: MAX_ITER=10000).
 
-|                      |                                                                                |
+| Property             | Info                                                                           |
 |----------------------|--------------------------------------------------------------------------------|
 |MAX_ITER=X            |integer (maximum number of iterations for simulation)                           |
 |STATE=X               |integer (interval for writing state to file; 0 => only initial and final)       |
