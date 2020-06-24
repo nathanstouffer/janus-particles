@@ -1,1 +1,0 @@
-https://www.chebfun.org/examples/stats/SmoothRandomWalk.html
