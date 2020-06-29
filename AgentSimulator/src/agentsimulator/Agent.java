@@ -32,6 +32,7 @@ public class Agent {
     private static final Color INACTIVECOLOR = new Color(100, 100, 100);     // inactive
     private static final Color   ACTIVECOLOR = new Color(0, 0, 255);         // active
     // static variable for id
+    // actual id counts from 1 (my cs hurts)
     private static int ID_SEED = 0;
     
     // static variables for computing rule movement
@@ -41,7 +42,7 @@ public class Agent {
     
     
     private final int id;           // index for the agent
-    private final double[] pos;     // position (only array address is final)
+    private final double[] pos;     // position (only array address is final, elements can be changed)
     private double theta;           // orientation
     private boolean active;         // boolean indicator of activity
     private Color color;            // color
@@ -59,7 +60,7 @@ public class Agent {
         setActive(false);
     }
     
-    /* method to tell whether this agent can see the query agent 
+    /* method to return the perception strenght of the query agent 
      * 
      * first we test if the query is in the fov of this agent,
      * we then scale 1/d (the distance) by the PERCEIVED_WEIGHT
@@ -67,7 +68,7 @@ public class Agent {
      *
      * @return if agent is itself:  0
      *         if not visible:      0
-     *         if visible:          r \in R^{\pos} (how "percieved" it is)
+     *         if visible:          r \in R (how "percieved" it is)
      */
     public double perceptionStrength(Agent query) {
         // return 0 if agent is itself
@@ -78,9 +79,9 @@ public class Agent {
         if (dist_sqrd == 0.0) { return 0.0; }
         // return 0.0 if not visible
         if (!visible(query)) { return 0.0; }
-        else {
-            // we now return the perception strength: PERCEIVED_WEIGHT / dist_sqrd
-            return 1 / (PERCEIVED_WEIGHT * dist_sqrd);
+        else { 
+            // we now return the perception strength: 1 / (PERCEIVED_WEIGHT * dist_sqrd)
+            return 1 / (PERCEIVED_WEIGHT * Math.sqrt(dist_sqrd));
         }
     }
         

@@ -49,8 +49,13 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        // check command line args for directory name
-        dir = args[0];
+        // checking for output directory name in command input
+        try { dir = args[0]; }
+        catch (ArrayIndexOutOfBoundsException a) {
+            System.err.println("Enter output directory name");
+            // exit no output file provided
+            System.exit(1);
+        }
 
         // read in configuration from file
         readConfig();
@@ -114,29 +119,35 @@ public class Client {
         // create file
         File config_file = new File(dir + "/.config");
 
-        // create buffered reader
-        BufferedReader br = new BufferedReader(new FileReader(config_file));
+        try {
+            // create buffered reader
+            BufferedReader br = new BufferedReader(new FileReader(config_file));
 
-        // read configuration
-        MAX_ITER = Integer.parseInt(value(br.readLine()));             // read in MAX_ITER
-        STATE = Integer.parseInt(value(br.readLine()));                // read in state interval
-        LOG = Integer.parseInt(value(br.readLine()));                  // read in log interval
-        GRAPHICS = Integer.parseInt(value(br.readLine()));             // read in graphics interval
-        init_state = value(br.readLine());                             // read in initial state type (r => random)
-        pos_stdv = Double.parseDouble(value(br.readLine()));           // read in pos std dev
-        ang_stdv = Double.parseDouble(value(br.readLine()));           // read in angle std dev
-        num_agents = Integer.parseInt(value(br.readLine()));           // read in number of agents
-        alpha = Double.parseDouble(value(br.readLine()));              // read in perception half-angle
-        perceived_weight = Double.parseDouble(value(br.readLine()));   // read in perceived weight
-        threshold = Double.parseDouble(value(br.readLine()));          // read in perception threshold
-        velocity = Double.parseDouble(value(br.readLine()));           // read in velocity of active particles
+            // read configuration
+            MAX_ITER         = Integer.parseInt(value(br.readLine()));          // read in MAX_ITER
+            STATE            = Integer.parseInt(value(br.readLine()));          // read in state interval
+            LOG              = Integer.parseInt(value(br.readLine()));          // read in log interval
+            GRAPHICS         = Integer.parseInt(value(br.readLine()));          // read in graphics interval
+            init_state       = value(br.readLine());                            // read in initial state type (r => random)
+            pos_stdv         = Double.parseDouble(value(br.readLine()));        // read in pos std dev
+            ang_stdv         = Double.parseDouble(value(br.readLine()));        // read in angle std dev
+            num_agents       = Integer.parseInt(value(br.readLine()));          // read in number of agents
+            alpha            = Double.parseDouble(value(br.readLine()));        // read in perception half-angle
+            perceived_weight = Double.parseDouble(value(br.readLine()));        // read in perceived weight
+            threshold        = Double.parseDouble(value(br.readLine()));        // read in perception threshold
+            velocity         = Double.parseDouble(value(br.readLine()));        // read in velocity of active particles
 
-        // close buffered reader
-        br.close();
+            // close buffered reader
+            br.close();
 
-        // exit if config is invalid
-        if (!validConfig()) {
-            System.err.println("Invalid configuration");
+            // exit if config is invalid
+            if (!validConfig()) {
+                System.err.println("Invalid configuration");
+                System.exit(1);
+            }
+        }
+        catch (FileNotFoundException f) {
+            System.err.println("No .config file in output directory");
             System.exit(1);
         }
     }

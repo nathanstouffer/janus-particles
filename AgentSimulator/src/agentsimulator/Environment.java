@@ -93,13 +93,13 @@ public class Environment extends JComponent {
         // set up data
         bbox = new BBox(WIDTH, HEIGHT);                             // init bounding box
         rand = new Random(System.currentTimeMillis());              // init random
-        initAgents();                                    // initialize agents
+        initAgents();                                               // initialize agents
     }
     
     /* method to move the agents (random movement as well as rule movement) */
     public void moveAgents() {
         iterations++;
-        gaussianBrownMotion();
+        brownianMotion();
         ruleMovement();
     }
     
@@ -113,7 +113,7 @@ public class Environment extends JComponent {
     /* method to induce a random walk using gaussian-generated
      * deltas) for each
      */
-    private void gaussianBrownMotion() {
+    private void brownianMotion() {
         // iterate over agents
         double dx, dy, dtheta;
         for (int a = 0; a < agents.length; a++) {
@@ -132,10 +132,10 @@ public class Environment extends JComponent {
     private void ruleMovement() {
         // iterate over the agents
         for (int a = 0; a < agents.length; a++) {
-            Agent cur = agents[a];  // current agent
-            double p_strength = 0.0;     // how many particles current agent can see
-            boolean activate = false;    // assume particle is inactive until proven otherwise
-            // iterate over particles
+            Agent cur = agents[a];       // current agent
+            double p_strength = 0.0;     // perception strength of the other agents
+            boolean activate = false;    // assume cur is inactive until proven otherwise
+            // iterate over agents
             for (int i = 0; i < agents.length && !activate; i++) {
                 // update p_strength
                 p_strength += cur.perceptionStrength(agents[i]);  // compute perception
@@ -206,7 +206,7 @@ public class Environment extends JComponent {
         double time = (end-start) / 1000.0;
         
         // write final state to file
-        stateToFile("final.csv", false);
+        stateToFile("final.csv", false); // false - don't write to log
         
         // construct log line
         String log_line = String.format("\nFinal state written to file"
