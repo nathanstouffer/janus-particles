@@ -1,3 +1,5 @@
+*insert write up of plot-state.py and cleani-state-imgs.py*
+
 Each subdirectory contains the following files
 
  * **README.md** - File containing initial conditions in a readable format.
