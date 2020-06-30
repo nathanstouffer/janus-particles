@@ -11,14 +11,15 @@
 import simulator            # import class containing config file
 import datetime             # import class with date
 import math                 # import math library
+import sys
 from sys import argv        # import library for checking command line stuff
 
 # function to return output directory name
-def outDir(perm):
+def outDir(flag):
     # begin output directory name
     name = "../data/"
     # check if this run is a temporary run
-    if (not perm):
+    if (flag == "-t"):
         name += "tmp/"
         print("Output going to temporary directory", flush=True)
     # compute date and time
@@ -54,7 +55,11 @@ velocity         = " "
 # ----------------------------------------
 
 # check command line inputs
-script, perm, input_file = argv
+script, flag, input_file = argv
+# check that flag is valid
+if (flag != "-t" and flag != "-p"):
+    print("invalid flag for output mode (must be '-t' or '-p')")
+    sys.exit(1)
 
 # open input file
 fin = open(input_file, "r")
@@ -79,7 +84,7 @@ for line in fin:
     velocity         = split[11]
     # ----------------------------------------
     # compute output directory
-    out_dir = outDir(perm == "-p")
+    out_dir = outDir(flag)
     # create config object
     sim = simulator.Simulator(max_iter, state, log, graphics, initial_state, pos_stdv, ang_stdv,
                                     num_agents, alpha, perceived_weight, threshold, velocity, out_dir)
