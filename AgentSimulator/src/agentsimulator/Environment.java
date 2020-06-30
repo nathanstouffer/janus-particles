@@ -20,10 +20,10 @@ import javax.swing.JComponent;
  * Class to represent the entire system. The environment
  * is composed of Agent objects. From a client perspective,
  * you can create, iterate, and render an environment.
- * 
+ *
  */
 public class Environment extends JComponent {
-    
+
     // window/dimensions to render state
     private static int WIDTH = 480;   private static int HEIGHT = 480;
     // bounding box
@@ -34,31 +34,31 @@ public class Environment extends JComponent {
     private final File log_file;
     // file containing initial state (r => random distribution)
     private final String init_state;
-    
+
     // maximum number of iterations (never used in code, just for output)
     private final int MAX_ITER;
-    
+
     // random number generator
     private final Random rand;
     // scale values for Gaussian distribution (disc rand walk)
     private final double pos_stdv;
     private final double ang_stdv;
-    
+
     // iterations ran so far
     private int iterations;
     // simulation start time
     private double start;
-    
+
     // variables required for the environment
     private final int num_agents;
-    private final double alpha;    
+    private final double alpha;
     private final double perceived_weight;
     private final double threshold;
     private final double velocity;
 
     // array to store the agents
     private Agent[] agents;
-    
+
     /* constructor to instantiate agents
      * _num_agents: number of agents
      * _alpha: half-angle for vision cone
@@ -95,21 +95,21 @@ public class Environment extends JComponent {
         rand = new Random(System.currentTimeMillis());              // init random
         initAgents();                                               // initialize agents
     }
-    
+
     /* method to move the agents (random movement as well as rule movement) */
     public void moveAgents() {
         iterations++;
         brownianMotion();
         ruleMovement();
     }
-    
+
     /* method to paint the environment to the window */
     @Override
     public void paintComponent(Graphics g) {
         bbox.drawBox(g);
         for (int a = 0; a < agents.length; a++) { agents[a].drawAgent(g); }
     }
-    
+
     /* method to induce a random walk using gaussian-generated
      * deltas) for each
      */
@@ -123,8 +123,8 @@ public class Environment extends JComponent {
             agents[a].update(dx, dy, dtheta);
         }
     }
-    
-    /* method to induce rule-based movement for agents 
+
+    /* method to induce rule-based movement for agents
      *
      * NOTE: method Agent.perception(Agent q) returns 0
      *       if q is itself
@@ -142,15 +142,15 @@ public class Environment extends JComponent {
                 if (p_strength >= threshold) { activate = true; }
             }
             // test if cur should move forward
-            if (activate) { 
+            if (activate) {
                 cur.setActive(true);
-                cur.moveForward(); 
+                cur.moveForward();
             }
             else { cur.setActive(false); }
         }
     }
-    
-    /* method to initialize the agents in the environment 
+
+    /* method to initialize the agents in the environment
      * init_states: String to denote how to initially distribute agents
      *                - r means distribute generate all values randomly
      *                - anything else is interpreted as a file name
@@ -174,7 +174,7 @@ public class Environment extends JComponent {
         // otherwise interpret init_states as a file
         else { stateFromFile(init_state); }
     }
-    
+
     /* method to begin the simulation
      *
      * this will create info.txt, write an initial state to a csv, and begin the log file
@@ -195,7 +195,7 @@ public class Environment extends JComponent {
         // write to console
         System.out.print(log_line);
     }
-    
+
     /* method to terminate the simulation
      *
      * this will write a final state to a csv and complete the log file
@@ -204,10 +204,10 @@ public class Environment extends JComponent {
         // compute simulation time
         double end = System.currentTimeMillis();
         double time = (end-start) / 1000.0;
-        
+
         // write final state to file
         stateToFile("final.csv", false); // false - don't write to log
-        
+
         // construct log line
         String log_line = String.format("\nFinal state written to file"
                                             + "\nSimulation complete "
@@ -217,9 +217,9 @@ public class Environment extends JComponent {
         writer.append(log_line);
         writer.close();
         // write to console
-        System.out.print(log_line);        
+        System.out.print(log_line);
     }
-    
+
     /* method to log simulation progress info in the .log file */
     public void logProgress() throws FileNotFoundException {
         // compute time passed
@@ -233,7 +233,7 @@ public class Environment extends JComponent {
         // write to console
         System.out.print(log_line);
     }
-    
+
     /* method to write a README for this directory
      * this will make it easier for humans to understand the contents of the directory
      */
@@ -241,11 +241,11 @@ public class Environment extends JComponent {
         // set up strings for output
         String file_name = "README.md";
         String output = "";
-        
+
         // this code block contains info that was put in the README one directory up
         // kept this code in case we changed our mind
         /*String output = "This README contains information for the simulation output in this directory.";
-        
+
         // extra info for the readme
         output += "\n\nThere are few types of files in this directory."
                 + "\n * **config** - File that the jar accessed to get simulation information "
@@ -257,12 +257,12 @@ public class Environment extends JComponent {
                         + "\n        iterations,time"
                         + "\n        1,x_1,y_1,theta_1,active_1"
                         + "\n        2,x_2,y_2,theta_2,active_2"
-                        + "\n         :" 
+                        + "\n         :"
                         + "\n         :"
                         + "\n        n,x_n,y_n,theta_n,active_n\n\n";*/
-        
+
         output += "Initial conditions for this run\n";
-        
+
         // populate output string
         output += "\n| Property     | Value     |";
         output += "\n|--------------|-----------|";
@@ -275,7 +275,7 @@ public class Environment extends JComponent {
         output += "\n|PERCEIVED_WEIGHT|" + perceived_weight + "|";
         output += "\n|THRESHOLD|"        + threshold        + "|";
         output += "\n|VELOCITY|"         + velocity         + "|";
-        
+
         // set output file
         File fout = new File(output_dir + "/" + file_name);
         PrintWriter writer = new PrintWriter(new FileOutputStream(fout));
@@ -283,7 +283,7 @@ public class Environment extends JComponent {
         writer.close();
         // set file as read only
         fout.setReadOnly();
-        
+
         // construct log line
         String log_line = "README written to file"; // first line of log file so no \n
         // write to log file
@@ -293,12 +293,12 @@ public class Environment extends JComponent {
         // write log line to console
         System.out.print(log_line);
     }
-    
+
     /* method to output the header to a file */
     private void headerToFile() throws FileNotFoundException {
         String file_name = "header.csv";
         String output = "";
-        
+
         // populate output string
         output += "max_iter,"         + MAX_ITER;
         output += "\ninitial_state,"    + init_state;
@@ -309,7 +309,7 @@ public class Environment extends JComponent {
         output += "\nperceived_weight," + perceived_weight;
         output += "\nthreshold,"        + threshold;
         output += "\nvelocity,"         + velocity;
-        
+
         // set output file
         File fout = new File(output_dir + "/" + file_name);
         PrintWriter writer = new PrintWriter(new FileOutputStream(fout));
@@ -317,9 +317,9 @@ public class Environment extends JComponent {
         writer.close();
         // set file as read only
         fout.setReadOnly();
-        
+
         // construct log line
-        String log_line = "header written to file"; // first line of log file so no \n
+        String log_line = "\nheader written to file"; // first line of log file so no \n
         // write to log file
         writer = new PrintWriter(new FileOutputStream(log_file));
         writer.append(log_line);
@@ -327,11 +327,11 @@ public class Environment extends JComponent {
         // write log line to console
         System.out.print(log_line);
     }
-    
+
     /* method to call stateToFile() with appropriate file name */
     public void stateToFile() throws FileNotFoundException { stateToFile(iterations + ".csv", true); }
-    
-    /* method to output the environment state to a file 
+
+    /* method to output the environment state to a file
      * file_name is the name of the output file
      * write_to_log tells whether to write to the log that state was saved
      */
@@ -340,9 +340,9 @@ public class Environment extends JComponent {
         String output = "";
         // compute time passed
         double time = (System.currentTimeMillis()-start) / 1000.0;
-        
+
         // populate output string
-        
+
         // variables for environment
         output += iterations + "," + time;
         //output += "\nid,x,y,theta,active"; // not sure if should include this
@@ -351,7 +351,7 @@ public class Environment extends JComponent {
             output += "\n" + agents[a].fileInfo();
         }
         output += "\n";
-        
+
         // output state to file
         File fout = new File(output_dir + "/" + file_name);
         PrintWriter writer = new PrintWriter(new FileOutputStream(fout));
@@ -359,8 +359,8 @@ public class Environment extends JComponent {
         writer.close();
         // set file as read only
         fout.setReadOnly();
-        
-        // check 
+
+        // check
         if (write_to_log) {
             // log that state was put to file
             // construct log_line
@@ -373,7 +373,7 @@ public class Environment extends JComponent {
             System.out.print(log_line);
         }
     }
-    
+
     /* method to read the initial state of the agents (pos and orientation) from a file
      * NOTE: this file is expected to be of the form
      * 1. num_agents
@@ -382,22 +382,22 @@ public class Environment extends JComponent {
      * .
      * n+1. x_n,y_n,theta_n
      *
-     * if num_agents from the file does not equal the global variable num_agents, the 
+     * if num_agents from the file does not equal the global variable num_agents, the
      * program will be stopped and an error will be reported
     */
     private void stateFromFile(String file_name) throws FileNotFoundException, IOException {
         // create file object
         File fin = new File(output_dir + "/" + file_name);
-        
+
         // construct the buffered reader
         BufferedReader br = new BufferedReader(new FileReader(fin));
-        
+
         // string to store lines as they are read
         String line = br.readLine();
         // first line should be file length
         int len = Integer.parseInt(line);
         // test if len equals num_agents, if not: terminate
-        if (len != num_agents) { 
+        if (len != num_agents) {
             System.err.println("number of agents in file must be equal to NUMAGENTS in config file");
             System.exit(1);
         }
@@ -418,13 +418,13 @@ public class Environment extends JComponent {
                 agents[a] = new Agent(x, y, theta);
             }
         }
-        
+
         // close buffered reader
         br.close();
     }
-    
+
     // static methods to set class properties
     public static void setWidth(int length)  { WIDTH  = length; }
     public static void setHeight(int length) { HEIGHT = length; }
-    
+
 }
