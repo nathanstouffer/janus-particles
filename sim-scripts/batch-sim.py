@@ -13,6 +13,7 @@ import datetime             # import class with date
 import math                 # import math library
 import sys
 from sys import argv        # import library for checking command line stuff
+import subprocess
 
 # function to return output directory name
 def outDir(flag):
@@ -20,6 +21,7 @@ def outDir(flag):
     name = "../data/"
     # check if this run is a temporary run
     if (flag == "-t"):
+        subprocess.run(["mkdir", "../data/tmp/"])
         name += "tmp/"
         print("Output going to temporary directory", flush=True)
     # compute date and time
