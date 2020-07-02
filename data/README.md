@@ -1,6 +1,10 @@
-*insert write up of plot-state.py and cleani-state-imgs.py*
+This directory contains the following things:
 
-Each subdirectory contains the following files
+* Output directory - These directories are named by the initial conditions of the simulation that they were a part of. They contain the files listed below.
+* *tmp/* - Directory containing output directories that are easily cleaned.
+* *plot-scripts* - Directory containing scripts to plot the data. Plots are saved to a directory */state-imgs/.*
+
+Each output directory contains the following files
 
  * **README.md** - File containing initial conditions in a readable format.
  * **.config** - File the jar accessed for simulation info (ie initial conditions).
