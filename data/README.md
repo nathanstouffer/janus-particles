@@ -2,7 +2,7 @@ This directory contains the following things:
 
 * Output directory - These directories are named by the initial conditions of the simulation that they were a part of. They contain the files listed below.
 * *tmp/* - Directory containing output directories that are easily cleaned (may not be in remote repository but will be generated locally when a "-t" simulation script is ran).
-* *plot-scripts* - Directory containing scripts to plot the data. Plots are saved to a directory */state-imgs/.*
+* *plot-scripts* - Directory containing scripts to plot the data. Plots are saved to a directory *\<OUTPUTDIR\>/state-imgs/.*
 
 Each output directory contains the following files
 
