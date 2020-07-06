@@ -1,7 +1,7 @@
 # janus-particles
-A simulation of agents acting on local rules in the plane and their emergent behavior
+The emergent behavior of agents acting on local rules in *[0,1]<sup>2</sup>.*
 
-This repository contains code and related work for an undergraduate research project and Montana State University.
+This repository contains code and related work for an undergraduate research project at Montana State University.
 The project was done in collaboration with Griffin Smith and Dr. Dominique Zosso (both of MSU).
 
 The code in this repository runs a simulation involving *n* agents in the plane.
@@ -23,14 +23,15 @@ The goal of this research is to discover the emergent behavior of the agents bas
 
 This repository contains the following directories.
  * **AgentSimulator/** - Java code that implements the simulation with all necessary parameters
+ * **code-drafts/** - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * **data/** - contains the output for the simulation runs
- * **exploring-options/** - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * **img/** - contains images for the repository and papers
  * **knowledge/** - contains reference papers
+ * **sim-scripts/** - contains scripts to run the simulation
 
-Run the program with *java -jar AgentSimulator.jar \<DIRECTORY\>* on the command line where \<DIRECTORY\> is the output directory.
+To run the simulation, use scripts in **sim-scripts** or *java -jar AgentSimulator.jar \<DIRECTORY\>* on the command line where \<DIRECTORY\> is the output directory.
 \<DIRECTORY\> should already exist and contain a file called *.config* that has the information shown in the following table.
-There should be no blank lines in *.config* and no spaces between a property and its value (what you should do: MAX_ITER=10000).
+There should be no blank lines in *.config* and no spaces between a property and its value (correct format: MAX_ITER=10000).
 
 | Property             | Info                                                                           |
 |----------------------|--------------------------------------------------------------------------------|
