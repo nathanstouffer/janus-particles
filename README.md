@@ -27,7 +27,6 @@ This repository contains the following directories.
  * **code-drafts/** - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * **data/** - contains the output for the simulation runs
  * **img/** - contains images for the repository and papers
- * **jars/** - contains the jars to run the simulation (they take the same type of config file)
  * **knowledge/** - contains reference papers
  * **sim-scripts/** - contains scripts to run the simulation
 
@@ -49,7 +48,3 @@ There should be no blank lines in *.config* and no spaces between a property and
 |PERCEIVED_WEIGHT=X    |float   (w in 1/(w\*d) where d is distance between agents)                      |
 |THRESHOLD=X           |float   (perception threshold to move forward)                                  |
 |VELOCITY=X            |float   (forward velocity of activated agents)                                  |
-
-*Note:*\
-sha256(AgentSimulator.jar)  = d0a1ce70d8ffe6c6e9f3c8d9ab3c5199e55be83a2c7ce42691046cb3a436d7d7\
-sha256(AgentSimulatorG.jar) = 0ea371cff52a388a7e59a281755c078c611d01248670b0e7342255c5756dee64

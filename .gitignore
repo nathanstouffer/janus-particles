@@ -1,7 +1,11 @@
 /AgentSimulator/nbproject/private/
 /AgentSimulator/build/
+/AgentSimulator/dist/
 /AgentSimulatorG/nbproject/private/
 /AgentSimulatorG/build/
+/AgentSimulatorG/dist/
 /JavaTest/nbproject/private/
 /JavaTest/build/
+/data/tmp/
+state-imgs/
 __pycache__/

@@ -31,10 +31,10 @@ class Simulator:
         # construct command
         com  = "java"
         # assume no graphics
-        args = [ "-jar", "../jars/AgentSimulator.jar",  self.out_dir ]
+        args = [ "-jar", "jars/AgentSimulator.jar",  self.out_dir ]
         # test for graphics
         if (display_graphics):
-            args[1] = "../jars/AgentSimulatorG.jar"
+            args[1] = "jars/AgentSimulatorG.jar"
         # run command
         subprocess.run([com, args[0], args[1], args[2]])
 
