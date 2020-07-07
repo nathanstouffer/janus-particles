@@ -3,18 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agentsimulator;
+package agentsimulatorg;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.swing.JFrame;
 
 /**
  *
  */
 public class Client {
+
+    // static methods to make changing color easy
+    private final static Color default_color = new Color(0,0,0);
+    private final static Color background_color = new Color(255,255,255);
+    public static Color getDefaultColor() { return default_color; }
 
     // output directory - should be provided as a command line arg
     private static String dir;
@@ -59,9 +66,20 @@ public class Client {
 
     /* method to run the simulation */
     private static void simulate() throws IOException {
+        // set static variables for Environment
+        int width = 480;              int height = 480;
+        Environment.setWidth(width);  Environment.setHeight(height);
         // create environment
         Environment env = new Environment(num_agents, alpha, perceived_weight, threshold, velocity,
                                             pos_stdv, ang_stdv, MAX_ITER, init_state, dir);
+
+        // set up window
+        JFrame window = new JFrame();
+        if (GRAPHICS != 0) {
+            window = initWindow(width, height);
+            // add the environment to be depicted
+            window.add(env);
+        }
 
         // begin simulation
         env.beginSim();
@@ -74,6 +92,8 @@ public class Client {
             if (LOG != 0 && iter % LOG == 0) { env.logProgress(); }
             // output state to file (when necessary)
             if (STATE != 0 && iter % STATE == 0 ) { env.stateToFile(); }
+            // display graphics (when necessary)
+            if (GRAPHICS != 0 && iter % GRAPHICS == 0) { window.repaint(); }
         }
 
         // terminate simulation
@@ -164,6 +184,22 @@ public class Client {
         if (velocity < 0) { System.err.println("VELOCITY must be nonnegative"); valid = false; }
         // return validity of configuration
         return valid;
+    }
+
+    /* method to initialize the window */
+    private static JFrame initWindow(int width, int height) {
+        JFrame window = new JFrame();
+        // color
+        window.getContentPane().setBackground(background_color);
+        // window title
+        window.setTitle("Current environment state");
+        // window properties
+        window.setSize(width, height);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
+        window.setResizable(false);
+        // return window
+        return window;
     }
 
 }

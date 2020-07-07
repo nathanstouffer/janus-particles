@@ -3,7 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agentsimulator;
+package agentsimulatorg;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
 
 /**
  * Class to represent an Agent. An agent has a position, orientation,
@@ -14,7 +20,17 @@ package agentsimulator;
  * HEIGHT should be given values instead of the assumed pair (100, 100)
  */
 public class Agent {
-
+    
+    // static variables involving the window
+    // assumed to be 100
+    private static int WIDTH = 100;
+    private static int HEIGHT = 100;
+    // static variables for drawing the agent
+    private static final int SHAPE = 0;   // 0 is circle, 1 is triangle
+    private static final double H     = 0.03;       // triangle height
+    private static final double HALFB = 0.01;       // triangle base
+    private static final Color INACTIVECOLOR = new Color(100, 100, 100);     // inactive
+    private static final Color   ACTIVECOLOR = new Color(0, 0, 255);         // active
     // static variable for id
     // actual id counts from 1 (my cs hurts)
     private static int ID_SEED = 0;
@@ -29,6 +45,7 @@ public class Agent {
     private final double[] pos;     // position (only array address is final, elements can be changed)
     private double theta;           // orientation
     private boolean active;         // boolean indicator of activity
+    private Color color;            // color
     
     /* constructor to instantiate an agent at a position 
      * and orientation
@@ -81,6 +98,21 @@ public class Agent {
     public void moveForward() {
         setXPos(clamp01(getXPos()+VELOCITY*Math.cos(theta)));
         setYPos(clamp01(getYPos()+VELOCITY*Math.sin(theta)));
+    }
+    
+    /* method to paint the agent in the window */
+    public void drawAgent(Graphics g) {
+        switch (SHAPE) {
+            case 0:     // circle
+                drawCircle(g);
+                break;
+            case 1:     // triangle
+                drawTriangle(g);
+                break;
+            default:
+                System.err.println("Shape unspecified");
+                break;
+        }
     }
     
     /* method to compute whether a is visible to this agent */
@@ -145,7 +177,11 @@ public class Agent {
     }
     
     // setter methods
-    public void setActive(boolean act) { active = act; }
+    public void setActive(boolean act) {
+        active = act;
+        if (act) { color = ACTIVECOLOR; }
+        else { color = INACTIVECOLOR; }
+    }
     private void setXPos(double x) { pos[0] = x; }
     private void setYPos(double y) { pos[1] = y; }
     
@@ -153,10 +189,92 @@ public class Agent {
     public double getXPos() { return pos[0]; }
     public double getYPos() { return pos[1]; }
     public int getID() { return id; }
-
+    
+    /* methods to compute the box coordinates for query variables */
+    // Circles ---- x: (23, 58) and y: (23, 86)
+    // Triangles -- x: (31, 66) and y: (31, 94)
+    private int toBoxX(double x) { 
+        switch (SHAPE) {
+            case 0:     // circles
+                return toBoxXCircles(x);
+            case 1:     // triangles
+                return toBoxXTriangles(x);
+            default:
+                System.err.println("invalid shape " + SHAPE);
+                break;
+        }
+        return -1;
+    }
+    private int toBoxY(double y) { 
+        switch (SHAPE) {
+            case 0:     // circles
+                return toBoxYCircles(y);
+            case 1:     // triangles
+                return toBoxYTriangles(y);
+            default:
+                System.err.println("invalid shape " + SHAPE);
+                break;
+        }
+        return -1;
+    }
+    
+    // methods to compute box coordinates for specific shapes
+    private int toBoxXCircles(double x)   { return 23 + ((int)( (WIDTH-58)*x)); }
+    private int toBoxYCircles(double y)   { return 23 + ((int)((HEIGHT-86)*y)); }
+    private int toBoxXTriangles(double x) { return 31 + ((int)( (WIDTH-66)*x)); }
+    private int toBoxYTriangles(double y) { return 31 + ((int)((HEIGHT-94)*y)); }
+    
+    // static methods to set class properties
+    public static void setWidth(int length)  { WIDTH  = length-12; }
+    public static void setHeight(int length) { HEIGHT = length-12; }
     public static void setAlpha(double alpha) { ALPHA = alpha; }
     public static void setPerceivedWeight(double perc_weight) { PERCEIVED_WEIGHT = perc_weight; }
     public static void setVelocity(double velocity) { VELOCITY = velocity; }
+    
+    // OUTPUT STUFF
+    
+    /* method to draw the agent as a circle */
+    private void drawCircle(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setPaint(color);                            // set paint color
+        g2d.fill(new Ellipse2D.Double(toBoxX(getXPos()), toBoxY(getYPos()), 7, 7));
+        g2d.setPaint(Client.getDefaultColor());       // reset paint color
+    }
+    
+    /* methd to draw the agent as a triangle */
+    private void drawTriangle(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setPaint(color);                            // set paint color
+        g2d.fill(triangPath());
+        g2d.setPaint(Client.getDefaultColor());       // reset paint color
+    }
+    
+    private Path2D triangPath() {
+        int[][] points = triangPoints();
+        Path2D path = new Path2D.Double();
+        path.moveTo(points[0][0], points[0][1]);
+        for (int p = 1; p < points.length; p++) {
+            path.lineTo(points[p][0], points[p][1]);
+        }
+        path.closePath();
+        return path;
+    }
+    
+    /* method to return the coordinates of the triangle 
+     * array is of the form { {x, y}, {x, y} ... {x, y} }
+    */
+    private int[][] triangPoints() {
+        int[][] points = new int[4][];
+        points[0] = new int[] { toBoxX(getXPos()-HALFB*Math.sin(theta)), 
+                                toBoxY(getYPos()+HALFB*Math.cos(theta)) };
+        points[1] = new int[] { toBoxX(getXPos()+H*Math.cos(theta)),
+                                toBoxY(getYPos()+H*Math.sin(theta))};
+        points[2] = new int[] { toBoxX(getXPos()+HALFB*Math.sin(theta)), 
+                                toBoxY(getYPos()-HALFB*Math.cos(theta)) };
+        points[3] = new int[] { toBoxX(getXPos()-HALFB*Math.sin(theta)), 
+                                toBoxY(getYPos()+HALFB*Math.cos(theta)) };
+        return points;
+    }
     
     /* method to return information required for the file */
     public String fileInfo() {

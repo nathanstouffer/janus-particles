@@ -27,10 +27,14 @@ class Simulator:
         subprocess.run(["mkdir", self.out_dir])
 
     # method to run the simulation
-    def runSimulation(self):
+    def runSimulation(self, display_graphics):
         # construct command
         com  = "java"
-        args = [ "-jar", "../AgentSimulator/dist/AgentSimulator.jar",  self.out_dir ]
+        # assume no graphics
+        args = [ "-jar", "../jars/AgentSimulator.jar",  self.out_dir ]
+        # test for graphics
+        if (display_graphics):
+            args[1] = "../jars/AgentSimulatorG.jar"
         # run command
         subprocess.run([com, args[0], args[1], args[2]])
 

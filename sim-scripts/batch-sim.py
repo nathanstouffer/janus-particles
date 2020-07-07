@@ -20,7 +20,7 @@ def outDir(flag):
     # begin output directory name
     name = "../data/"
     # check if this run is a temporary run
-    if (flag == "-t"):
+    if ("t" in flag):
         subprocess.run(["mkdir", "../data/tmp/"])
         name += "tmp/"
         print("Output going to temporary directory", flush=True)
@@ -59,9 +59,10 @@ velocity         = " "
 # check command line inputs
 script, flag, input_file = argv
 # check that flag is valid
-if (flag != "-t" and flag != "-p"):
+if ("t" not in flag and "p" not in flag):
     print("invalid flag for output mode (must be '-t' or '-p')")
     sys.exit(1)
+display_graphics = ("g" in flag)
 
 # open input file
 fin = open(input_file, "r")
@@ -93,6 +94,6 @@ for line in fin:
     # write the configuation file
     sim.writeConfigFile()
     # run simulate
-    sim.runSimulation()
+    sim.runSimulation(display_graphics)
 
 fin.close()

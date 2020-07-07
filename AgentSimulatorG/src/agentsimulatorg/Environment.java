@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package agentsimulator;
+package agentsimulatorg;
 
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
+import javax.swing.JComponent;
 
 /**
  * Class to represent the entire system. The environment
@@ -20,8 +22,12 @@ import java.util.Random;
  * you can create, iterate, and render an environment.
  *
  */
-public class Environment {
-    
+public class Environment extends JComponent {
+
+    // window/dimensions to render state
+    private static int WIDTH = 480;   private static int HEIGHT = 480;
+    // bounding box
+    private final BBox bbox;
     // output directory name
     private final String output_dir;
     // log file object
@@ -85,6 +91,7 @@ public class Environment {
         Agent.setPerceivedWeight(perceived_weight);
         Agent.setVelocity(velocity);
         // set up data
+        bbox = new BBox(WIDTH, HEIGHT);                             // init bounding box
         rand = new Random(System.currentTimeMillis());              // init random
         initAgents();                                               // initialize agents
     }
@@ -94,6 +101,13 @@ public class Environment {
         iterations++;
         brownianMotion();
         ruleMovement();
+    }
+
+    /* method to paint the environment to the window */
+    @Override
+    public void paintComponent(Graphics g) {
+        bbox.drawBox(g);
+        for (int a = 0; a < agents.length; a++) { agents[a].drawAgent(g); }
     }
 
     /* method to induce a random walk using gaussian-generated
@@ -142,6 +156,9 @@ public class Environment {
      *                - anything else is interpreted as a file name
      */
     private void initAgents() throws FileNotFoundException, IOException {
+        // set characteristics in Agent class
+        Agent.setWidth(WIDTH);
+        Agent.setHeight(HEIGHT);
         agents = new Agent[num_agents];
         // if initial state is randomly distributed
         if (init_state.equals("r")) {
@@ -405,5 +422,9 @@ public class Environment {
         // close buffered reader
         br.close();
     }
+
+    // static methods to set class properties
+    public static void setWidth(int length)  { WIDTH  = length; }
+    public static void setHeight(int length) { HEIGHT = length; }
 
 }
