@@ -22,10 +22,12 @@ The system then iterates until a cap.
 The goal of this research is to discover the emergent behavior of the agents based on the initial conditions.
 
 This repository contains the following directories.
- * **AgentSimulator/** - Java code that implements the simulation with all necessary parameters
+ * **AgentSimulator/** - Java implementation of the simulation (no graphics can be displayed)
+ * **AgentSimulatorG/** - Java implementation of the simulation (there is an option to display graphics)
  * **code-drafts/** - contains the beginnings of both a Java and MATLAB implementation of the simulation (to get a feel for which language would be most appropriate)
  * **data/** - contains the output for the simulation runs
  * **img/** - contains images for the repository and papers
+ * **jars/** - contains the jars to run the simulation (they take the same type of config file)
  * **knowledge/** - contains reference papers
  * **sim-scripts/** - contains scripts to run the simulation
 
@@ -48,4 +50,6 @@ There should be no blank lines in *.config* and no spaces between a property and
 |THRESHOLD=X           |float   (perception threshold to move forward)                                  |
 |VELOCITY=X            |float   (forward velocity of activated agents)                                  |
 
-Note: sha256(AgentSimulator.jar) = e815f0a44845c82a9b0eee221dbc8e8528dde39d0056543d2daf140358089173
+*Note:*\
+sha256(AgentSimulator.jar)  = d0a1ce70d8ffe6c6e9f3c8d9ab3c5199e55be83a2c7ce42691046cb3a436d7d7\
+sha256(AgentSimulatorG.jar) = 0ea371cff52a388a7e59a281755c078c611d01248670b0e7342255c5756dee64
