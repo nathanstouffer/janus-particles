@@ -26,7 +26,7 @@ public class Agent {
     private static int WIDTH = 100;
     private static int HEIGHT = 100;
     // static variables for drawing the agent
-    private static final int SHAPE = 0;   // 0 is circle, 1 is triangle
+    private static final int SHAPE = 1;   // 0 is circle, 1 is triangle
     private static final double H     = 0.03;       // triangle height
     private static final double HALFB = 0.01;       // triangle base
     private static final Color INACTIVECOLOR = new Color(100, 100, 100);     // inactive

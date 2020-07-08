@@ -29,8 +29,8 @@ public class Environment extends JComponent {
     // random number generator
     private final Random rand;
     // scale values for Gaussian distribution (disc rand walk)
-    private final double POS_STDV = 0.00025;
-    private final double ANG_STDV = 0.025;
+    private final double POS_STDV = 0.0005;
+    private final double ANG_STDV = 0.1;
     // step size for continuous random walk
     private final double POS_STEP_SIZE = 0.0001;
     private final double ANG_STEP_SIZE = 0.1;
@@ -73,8 +73,8 @@ public class Environment extends JComponent {
     /* method to move the agents (random movement as well as rule movement) */
     public void moveAgents() {
         iterations++;
-        //gaussianRandWalk();
-        coinFlipRandWalk();
+        gaussianRandWalk();
+        //coinFlipRandWalk();
         //gravityRandWalk();
         ruleMovement();
     }
