@@ -116,23 +116,28 @@ public class Environment {
      *       if q is itself
      */
     private void ruleMovement() {
+        // indicators for whether an agent should be active
+        boolean[] activate = new boolean[agents.length];
         // iterate over the agents
         for (int a = 0; a < agents.length; a++) {
             Agent cur = agents[a];       // current agent
             double p_strength = 0.0;     // perception strength of the other agents
-            boolean activate = false;    // assume cur is inactive until proven otherwise
+            activate[a] = false;         // assume cur is inactive until proven otherwise
             // iterate over agents
-            for (int i = 0; i < agents.length && !activate; i++) {
+            for (int i = 0; i < agents.length && !activate[a]; i++) {
                 // update p_strength
-                p_strength += cur.perceptionStrength(agents[i]);  // compute perception
-                if (p_strength >= threshold) { activate = true; }
+                p_strength += cur.perceptionStrength(agents[i]);        // compute perception
+                if (p_strength >= threshold) { activate[a] = true; }    // set activate to true when above threshold
             }
-            // test if cur should move forward
-            if (activate) {
-                cur.setActive(true);
-                cur.moveForward();
+        }
+        // move agents (if necessary)
+        for (int a = 0; a < activate.length; a++) {
+            // test if agent should move forward
+            if (activate[a]) {
+                agents[a].setActive(true);
+                agents[a].moveForward();
             }
-            else { cur.setActive(false); }
+            else { agents[a].setActive(false); }
         }
     }
 
