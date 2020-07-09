@@ -34,18 +34,18 @@ pi = math.pi
 
 # configuration variables
 # ----------------------------------------
-max_iter         = 100000
+max_iter         = 200000
 state            = 25000
 log              = 25000
 graphics         = 1#00
 initial_state    = "r"
-pos_stdv         = 0.0005
-ang_stdv         = 0.05
-num_agents       = 250
+pos_stdv         = 0.00025
+ang_stdv         = 0.2
+num_agents       = 100
 alpha            = pi / 4.0
 perceived_weight = 2*pi
-threshold        = 37.5
-velocity         = 0.00075
+threshold        = 20.0
+velocity         = 0.000025
 # ----------------------------------------
 
 
