@@ -18,12 +18,15 @@ import subprocess
 # function to return output directory name
 def outDir(flag, input_file):
     # begin output directory name
-    name = "../data/" + input_file[:-4] + "/"
+    name = "../data/"
     # check if this run is a temporary run
     if ("t" in flag):
         subprocess.run(["mkdir", "../data/tmp/"])
         name += "tmp/"
         print("Output going to temporary directory", flush=True)
+    # add batch file name
+    name += input_file.split("/")[-1][:-4] + "/"
+    subprocess.run(["mkdir", name])
     # compute date and time
     now = datetime.datetime.now().strftime("d-%m.%d.%Y_t-%H.%M.%S")
     # construct directory name
