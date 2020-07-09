@@ -2,7 +2,7 @@
 The emergent behavior of agents acting on local rules in *[0,1]<sup>2</sup>.*
 
 This repository contains code and related work for an undergraduate research project at Montana State University.
-The project was done in collaboration with Griffin Smith and Dr. Dominique Zosso (both of MSU).
+The project was done in collaboration with Griffin Smith, Dr. Dominique Zosso, and Dr. Scott McCalla (all of MSU).
 
 The code in this repository runs a simulation involving *n* agents in the plane.
 Each agent has a
