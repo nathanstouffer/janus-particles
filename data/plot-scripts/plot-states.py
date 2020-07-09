@@ -60,7 +60,7 @@ def processDir(dir):
 def processStates(dir, states):
     for s in states:
         # plot points
-        scat = plt.scatter(s.x, s.y, c=colormap[s.active])
+        scat = plt.scatter(s.x, s.y, s=size, c=colormap[s.active])
         plt.title("Agent positions at " + str(s.iter) + " iterations")
         # save plot to file
         plt.savefig(dir + "/state-imgs/" + str(s.iter) + ".png")
@@ -70,12 +70,12 @@ def processStates(dir, states):
 # method to run the slide show
 def showSlides(states):
     for s in states:
-        slide = plt.scatter(s.x, s.y, c=colormap[s.active])
+        slide = plt.scatter(s.x, s.y, s=size, c=colormap[s.active])
         plt.title("Agent positions at " + str(s.iter) + " iterations")
         plt.draw()
         plt.pause(0.5)
         slide.remove()
-    plt.scatter(states[-1].x, states[-1].y, c=colormap[states[-1].active])
+    plt.scatter(states[-1].x, states[-1].y, s=size, c=colormap[states[-1].active])
     plt.show()
 
 
@@ -86,6 +86,7 @@ def showSlides(states):
 slides = False
 # colormap
 colormap = np.array(['grey', 'blue'])
+size = 3
 
 # get command line arguments
 for a in range(1, len(argv)):
