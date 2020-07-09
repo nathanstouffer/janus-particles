@@ -16,7 +16,7 @@ from sys import argv        # import library for checking command line stuff
 import subprocess
 
 # function to return output directory name
-def outDir(flag, input_file):
+def outDir(flag, input_file, dir_time):
     # begin output directory name
     name = "../data/"
     # check if this run is a temporary run
@@ -24,11 +24,11 @@ def outDir(flag, input_file):
         subprocess.run(["mkdir", "../data/tmp/"])
         name += "tmp/"
         print("Output going to temporary directory", flush=True)
-    # add batch file name
-    name += input_file.split("/")[-1][:-4] + "/"
-    subprocess.run(["mkdir", name])
     # compute date and time
     now = datetime.datetime.now().strftime("d-%m.%d.%Y_t-%H.%M.%S")
+    # add batch file name
+    name += input_file.split("/")[-1][:-4] + "_" + dir_time + "/"
+    subprocess.run(["mkdir", name])
     # construct directory name
     name += "n-" + str(num_agents)            + "_"
     name += "a-" + str(alpha)[0:5]            + "_"
@@ -67,6 +67,9 @@ if ("t" not in flag and "p" not in flag):
     sys.exit(1)
 display_graphics = ("g" in flag)
 
+# compute directory time
+dir_time = datetime.datetime.now().strftime("d-%m.%d.%Y_t-%H.%M.%S")
+
 # open input file
 fin = open(input_file, "r")
 fin.readline()
@@ -90,7 +93,7 @@ for line in fin:
     velocity         = split[11]
     # ----------------------------------------
     # compute output directory
-    out_dir = outDir(flag, input_file)
+    out_dir = outDir(flag, input_file, dir_time)
     # create config object
     sim = simulator.Simulator(max_iter, state, log, graphics, initial_state, pos_stdv, ang_stdv,
                                     num_agents, alpha, perceived_weight, threshold, velocity, out_dir)
