@@ -16,9 +16,9 @@ from sys import argv        # import library for checking command line stuff
 import subprocess
 
 # function to return output directory name
-def outDir(flag):
+def outDir(flag, input_file):
     # begin output directory name
-    name = "../data/"
+    name = "../data/" + input_file[:-4] + "/"
     # check if this run is a temporary run
     if ("t" in flag):
         subprocess.run(["mkdir", "../data/tmp/"])
@@ -87,7 +87,7 @@ for line in fin:
     velocity         = split[11]
     # ----------------------------------------
     # compute output directory
-    out_dir = outDir(flag)
+    out_dir = outDir(flag, input_file)
     # create config object
     sim = simulator.Simulator(max_iter, state, log, graphics, initial_state, pos_stdv, ang_stdv,
                                     num_agents, alpha, perceived_weight, threshold, velocity, out_dir)
