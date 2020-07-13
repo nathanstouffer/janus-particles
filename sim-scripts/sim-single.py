@@ -50,6 +50,9 @@ velocity         = 0.000025
 
 
 # check command line inputs
+if (len(argv) != 2):
+    print("command should be of the form \"python sim-single.py -<flag>\"")
+    sys.exit(1)
 script, flag = argv
 # check that flag is valid
 if ("t" not in flag and "p" not in flag):

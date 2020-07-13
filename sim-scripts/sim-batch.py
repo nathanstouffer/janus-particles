@@ -60,6 +60,9 @@ velocity         = " "
 # ----------------------------------------
 
 # check command line inputs
+if (len(argv) != 3):
+    print("command should be of the form \"python sim-batch.py -<flag> <input file path>\"")
+    sys.exit(1)
 script, flag, input_file = argv
 # check that flag is valid
 if ("t" not in flag and "p" not in flag):
