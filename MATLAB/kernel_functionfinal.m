@@ -21,7 +21,5 @@ function [Kernel] = kernel_functionfinal(alpha,orientation,N)
     Kernel(middle,middle) = 0; % Replaces the NaN value in the middle witha  zero
 
     
-    % Finally we make the kernel sparse to help with space/time etc.
-    Kernel = sparse(Kernel);
-
+    
 end
