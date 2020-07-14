@@ -1,0 +1,13 @@
+Initial conditions for this run
+
+| Property     | Value     |
+|--------------|-----------|
+|MAX_ITER|200000|
+|INITIAL_STATE|r|
+|POS_STDV|8.0E-4|
+|ANG_STDV|0.14|
+|NUM_AGENTS|75|
+|ALPHA| 0.7853981633974483|
+|PERCEIVED_WEIGHT|6.283185307179586|
+|THRESHOLD|11.93662073189215|
+|VELOCITY|8.0E-4|
