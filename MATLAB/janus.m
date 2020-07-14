@@ -1,10 +1,11 @@
-function dy = janus(y, N, phi, sigma, v, D_phi, D_xy, K, D, L)
+function dy = janus(y, N, phi, Pstar, v, D_phi, D_xy, K, D, L)
     %Model for Janus Particles
     %   
     
     % Some information about angle species
     theta = linspace(0,2*pi, phi+1);
-    
+    h_phi = 2*pi/phi; % angular step in radians
+
 
     % Shaping things and setting up arrays
     rho_stack = reshape(y,[N,N,phi]);
@@ -17,13 +18,14 @@ function dy = janus(y, N, phi, sigma, v, D_phi, D_xy, K, D, L)
         rho_xx = L*rho{i} + rho{i}*L; 
         
         % The Angular Diffusion term
-        rho_thetatheta = rho{mod(i-2,phi)+1} - 2*rho{i} + rho{mod(i,phi)+1}; 
+        rho_thetatheta = (rho{mod(i-2,phi)+1} - 2*rho{i} + rho{mod(i,phi)+1})/(h_phi*h_phi); 
         
         %Advection Term
-        V = conv2(rho_int,K{i},'same'); % Convolution
-        f = (V >= sigma); % Activation
+        P = conv2(rho_int,K{i},'same'); % Convolution
+        f = (P >= Pstar); % Activation
         
-        A = D*(f.*rho{i})*cos(theta(i)) + (f.*rho{i})*D*sin(theta(i)); 
+        % D*[] is d/dy; []*D is d/dx; u_theta = [cos, -sin]
+        A = -D*(f.*rho{i})*sin(theta(i)) + (f.*rho{i})*D*cos(theta(i)); 
         
         
         % putting it all together
