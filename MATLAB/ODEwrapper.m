@@ -26,7 +26,7 @@ rhostack( randperm(N*N*phi,n) ) = 1; % place n random particles...
 
 % Setting up L and div matrices
 % forward differences
-Df = spdiags( repmat( [-1 1], N,1 ), [0 1], N, N )/(2*h_x); % This is a sparse,
+Df = spdiags( repmat( [-1 1], N,1 ), [0 1], N, N )/h_x; % This is a sparse,
 % NxN matrix where  +/- ones(N,1) are placed on the 0th and 1st diagonal
 Df(end,:) = 0; % Neumann b.c.
 
