@@ -3,7 +3,7 @@ This directory contains the following things:
 * Output directory - These directories are named by the initial conditions of the simulation that they were a part of. They contain the files listed below.
 * Batch directory - Directory containing output directories from a batch. This directory is named by the batch file and a time stamp.
 * *tmp/* - Directory containing output directories that are easily cleaned (with *rm -rf tmp/\** or something). This directory may not be in the remote repository but will be generated locally when a "-t" simulation script is ran.
-* *plot-scripts* - Directory containing scripts to plot the data. Plots are saved to a directory *\<OUTPUTDIR\>/state-imgs/.*
+* *plot-scripts.py* - Directory containing scripts to plot the data. Run this with the command *python plot-scripts.py \<DIRECTORY\>* (or *python plot-scripts.py -s \<DIRECTORY\>* to show a slideshow). The plots are saved to *\<DIRECTORY\>/state-imgs/.*
 
 Each output directory contains the following files
 
