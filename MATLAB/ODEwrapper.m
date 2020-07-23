@@ -8,15 +8,15 @@ R = 250;  % 250 um side length of the 0-1-square
 N = 32; % spatial resolution
 h_x = R/N; % spatial step in um
 
-phi = 16; % angular resolution
+phi = 36; % angular resolution
 
-T = 200;  % simulation duration
+T = 2500;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 alpha = pi/4;
 
 Pstar = 2*alpha*n/pi/pi/N; % activation threshold
-v = 0.2; % activation drift (um/s)
+v = 0.4; % activation drift (um/s)
 D_xy = 0.02; % spatial diffusion coefficient (um^2/s)
 D_phi = 1/110; % angular diffusion coefficient (1/s)
 
