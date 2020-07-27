@@ -1,4 +1,4 @@
-function dy = janus(y, N, phi, Pstar, v, D_phi, D_xy, K, D, L)
+function dy = janus(y, N, phi, Pstar, v, D_phi, D_xy, K, Df, Db, L)
     %Model for Janus Particles
     %   
     
@@ -25,7 +25,18 @@ function dy = janus(y, N, phi, Pstar, v, D_phi, D_xy, K, D, L)
         f = (P >= Pstar); % Activation
         
         % D*[] is d/dy; []*D is d/dx; u_theta = [cos, -sin]
-        A = -D*(f.*rho{i})*sin(theta(i)) + (f.*rho{i})*D*cos(theta(i)); 
+        u = [cos(theta(i)); -sin(theta(i))];
+        if u(1) > 0
+            Dx = Db;
+        else
+            Dx = Df;
+        end
+        if u(2) > 0
+            Dy = Db;
+        else
+            Dy = Df;
+        end
+        A = (f.*rho{i})*Dx*u(1) + Dy*(f.*rho{i})*u(2); 
         
         
         % putting it all together

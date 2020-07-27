@@ -33,7 +33,8 @@ Df = spdiags( repmat( [-1 1], N,1 ), [0 1], N, N )/h_x; % This is a sparse,
 Df(end,:) = 0; % Neumann b.c.
 
 Db = -rot90(Df,2); % backward differences
-D = (Df + Db)/2; % centered differences
+
+% D = (Df + Db)/2; % centered differences
 
 L = (-Df'*Df-Db'*Db)/2; % Laplacian is average of fwd/bwd grad-divergence composition
 
@@ -42,9 +43,9 @@ L = (-Df'*Df-Db'*Db)/2; % Laplacian is average of fwd/bwd grad-divergence compos
 K = Klibfunc(alpha,phi,N);
 
 if stiff
-    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,D,L), (0:0.2:1)*T, rhostack(:));
+    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), (0:0.2:1)*T, rhostack(:));
 else
-    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,D,L), (0:0.2:1)*T, rhostack(:));
+    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), (0:0.2:1)*T, rhostack(:));
 end
 
 
