@@ -42,11 +42,17 @@ L = (-Df'*Df-Db'*Db)/2; % Laplacian is average of fwd/bwd grad-divergence compos
 % setting up kernel libraries
 K = Klibfunc(alpha,phi,N);
 
+tspan = (0:0.02:1)*T;
+
+options = odeset('OutputFcn',@(t,y,flag) MyOutputFcn(t,y,flag,tspan(end)));
+
+tic;
 if stiff
-    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), (0:0.2:1)*T, rhostack(:));
+    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), tspan, rhostack(:), options);
 else
-    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), (0:0.2:1)*T, rhostack(:));
+    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), tspan, rhostack(:), options);
 end
+toc
 
 
 %% viz: final perception and activations
@@ -63,7 +69,7 @@ for i = 1:phi
     subplot(r,2*r,phi+i);
     imagesc(1*f);
 end
- 
+
 %% viz: densities over time
 
 figure;
@@ -80,10 +86,25 @@ for tt = 1:length(t)
         box off;
     end
     subplot(length(t),phi/phistep+1,tt*(phi/phistep+1));
-        imagesc(sum(stack,3));
-        axis tight;
-        axis equal;
-        axis off;
-        box off;
+    imagesc(sum(stack,3));
+    axis tight;
+    axis equal;
+    axis off;
+    box off;
     disp("at t = " + t(tt) + "s: n = " + (sum(stack,'all')) );
+end
+
+
+%% helper function for progress report
+
+function status = MyOutputFcn(t,y,flag,endt)
+switch flag
+    case ''
+        disp(t + " / " + endt + "   ---- int rho = " + sum(y(:)));
+    case 'init'
+        disp("ODE solver started");
+    case 'done'
+        disp("ODE solver done");
+end
+status = 0;
 end
