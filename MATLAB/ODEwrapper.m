@@ -31,10 +31,10 @@ rhostack( randperm(N*N*phi,n) ) = 1; % place n random particles...
 Df = spdiags( repmat( [-1 1], N,1 ), [0 1], N, N )/h_x; % This is a sparse,
 % NxN matrix where  +/- ones(N,1) are placed on the 0th and 1st diagonal
 Df(end,:) = 0; % Neumann b.c.
-
 Db = -rot90(Df,2); % backward differences
 
-% D = (Df + Db)/2; % centered differences
+% note: div = - grad'; therefore, for advection term, we will need -Db'
+% and -Df' instead of Df and Db
 
 L = (-Df'*Df-Db'*Db)/2; % Laplacian is average of fwd/bwd grad-divergence composition
 
@@ -48,9 +48,9 @@ options = odeset('OutputFcn',@(t,y,flag) MyOutputFcn(t,y,flag,tspan(end)));
 
 tic;
 if stiff
-    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), tspan, rhostack(:), options);
+    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 else
-    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,Df,Db,L), tspan, rhostack(:), options);
+    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 end
 toc
 
