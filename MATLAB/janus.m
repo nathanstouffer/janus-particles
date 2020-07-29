@@ -36,7 +36,7 @@ function dy = janus(y, N, phi, Pstar, v, D_phi, D_xy, K, Df, Db, L)
         else
             Dy = Df;
         end
-        A = (f.*rho{i})*Dx*u(1) + Dy*(f.*rho{i})*u(2); 
+        A = (f.*rho{i})*Dx'*u(1) + Dy*(f.*rho{i})*u(2); 
         
         
         % putting it all together
