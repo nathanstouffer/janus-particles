@@ -107,8 +107,8 @@ data = squeeze(num2cell(reshape(y, [size(y,1),N,N,phi] ), [2 3]));
 for i = 1:numel(data)
     data{i} = squeeze(data{i});
 end
-DD = imtile(data);
-imshow(DD);
+DD = imtile(data, 'GridSize', size(data));
+% imshow(DD);
 imwrite(DD, "bigoutput.png");
 
 
