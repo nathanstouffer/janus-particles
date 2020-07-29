@@ -8,24 +8,26 @@ R = 250;  % 250 um side length of the 0-1-square
 N = 32; % spatial resolution
 h_x = R/N; % spatial step in um
 
-phi = 4; % angular resolution
+phi = 8; % angular resolution
 
 T = 50000;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 alpha = pi/4;
 
-Pstar = alpha*n/pi/pi/N; % activation threshold
+Pstar = 2*alpha*n/pi/pi/N; % activation threshold
 v = 0.2; % activation drift (um/s)
 D_xy = 0.02; % spatial diffusion coefficient (um^2/s)
 D_phi = 1/110; % angular diffusion coefficient (1/s)
 
 
+rhostack = zeros(N,N,phi);
+rhostack( randperm(N*N*phi,n) ) = 1; % place n random particles...
 
-
-rhostack = zeros(N/2,N/2,phi);
-rhostack( randperm(N/2*N/2*phi,n) ) = 1; % place n random particles...
-rhostack = padarray(rhostack, [N/4 N/4 0], 0, 'both');
+% if margins are needed:
+%rhostack = zeros(N/2,N/2,phi);
+%rhostack( randperm(N/2*N/2*phi,n) ) = 1; % place n random particles...
+%rhostack = padarray(rhostack, [N/4 N/4 0], 0, 'both');
 
 % Setting up L and div matrices
 % forward differences
