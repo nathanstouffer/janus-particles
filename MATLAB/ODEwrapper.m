@@ -109,6 +109,7 @@ for i = 1:numel(data)
 end
 DD = imtile(data);
 imshow(DD);
+imwrite(DD, "bigoutput.png");
 
 
 %% helper function for progress report
