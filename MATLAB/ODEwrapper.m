@@ -2,8 +2,6 @@ clear all;
 close all;
 clc;
 
-stiff = false;  % only set to true when working on meriwether... maybe?
-
 R = 250;  % 250 um side length of the 0-1-square
 N = 32; % spatial resolution
 h_x = R/N; % spatial step in um
@@ -50,11 +48,7 @@ tspan = (0:0.01:1)*T;
 options = odeset('OutputFcn',@(t,y,flag) MyOutputFcn(t,y,flag,tspan(end)));
 
 tic;
-if stiff
-    [t,y] = ode15s(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
-else
-    [t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
-end
+[t,y] = ode113(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 toc
 
 
