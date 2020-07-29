@@ -6,9 +6,9 @@ R = 250;  % 250 um side length of the 0-1-square
 N = 32; % spatial resolution
 h_x = R/N; % spatial step in um
 
-phi = 8; % angular resolution
+phi = 36; % angular resolution
 
-T = 50000;  % simulation duration
+T = 5000;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 alpha = pi/4;
@@ -36,6 +36,8 @@ Db = -rot90(Df,2); % backward differences
 
 % note: div = - grad'; therefore, for advection term, we will need -Db'
 % and -Df' instead of Df and Db
+
+% also note: y-direction: D * [ ... ], x-direction: [ ... ] * D'
 
 L = (-Df'*Df-Db'*Db)/2; % Laplacian is average of fwd/bwd grad-divergence composition
 
@@ -70,7 +72,7 @@ end
 %% viz: densities over time
 
 figure;
-phistep = 1;
+phistep = 3;
 tstep = 10;
 for tt = 1:tstep:length(t)
     stack = reshape(y(tt,:),[N,N,phi]);
@@ -98,6 +100,15 @@ figure;
 for tt = 1:length(t)
     imagesc(sum(reshape(y(tt,:),[N,N,phi]),3)); drawnow; pause(0.1);
 end
+
+
+%%
+data = squeeze(num2cell(reshape(y, [size(y,1),N,N,phi] ), [2 3]));
+for i = 1:numel(data)
+    data{i} = squeeze(data{i});
+end
+DD = imtile(data);
+imshow(DD);
 
 
 %% helper function for progress report

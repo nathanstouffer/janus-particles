@@ -24,7 +24,7 @@ function dy = janus(y, N, phi, Pstar, v, D_phi, D_xy, K, Df, Db, L)
         P = conv2(rho_int,K{i},'same'); % Convolution
         f = (P >= Pstar); % Activation
         
-        % D*[] is d/dy; []*D is d/dx; u_theta = [cos, -sin]
+        % D*[] is d/dy; []*D' is d/dx; u_theta = [cos, -sin]
         u = [cos(theta(i)); -sin(theta(i))];
         if u(1) > 0
             Dx = Db;
