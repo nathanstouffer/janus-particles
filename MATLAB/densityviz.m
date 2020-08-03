@@ -4,7 +4,7 @@ clc;
 
 %% reading in
 
-prefix = "../janus-particles/data/tmp/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-07.31.2020_t-17.43.14/";
+prefix = "../data/tmp/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-07.31.2020_t-17.43.14/";
 postfix = ".csv";
 
 seq = 5:5:20000;  % these are the files we have
@@ -24,8 +24,8 @@ D = cat(3,D{:});
 
 %%
 
-x = round(31.9999*squeeze(D(:,1,:))+0.5);
-y = round(31.9999*squeeze(D(:,2,:))+0.5);
+x = round(31.9999*squeeze(1-D(:,2,:))+0.5);  % second MATLAB coordinate, downwards
+y = round(31.9999*squeeze(D(:,1,:))+0.5); % first MATLAB coordinate
 theta = round(14.99/2/pi*squeeze(D(:,3,:))+0.5);
 s = squeeze(D(:,4,:));
 
