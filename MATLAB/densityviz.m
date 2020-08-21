@@ -4,7 +4,7 @@ clc;
 
 %% reading in
 
-prefix = "../data/tmp/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-07.31.2020_t-17.43.14/";
+prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-07.31.2020_t-17.43.14/";
 postfix = ".csv";
 
 seq = 5:5:20000;  % these are the files we have
