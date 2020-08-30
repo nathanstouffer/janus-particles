@@ -46,8 +46,7 @@ public class Agent {
     /* method to return the perception strenght of the query agent 
      * 
      * first we test if the query is in the fov of this agent,
-     * we then scale 1/d (the distance) by the PERCEIVED_WEIGHT
-     * and return
+     * we then return the negative exponential of the scaled distance
      *
      * @return if agent is itself:  0
      *         if not visible:      0
@@ -63,8 +62,8 @@ public class Agent {
         // return 0.0 if not visible
         if (!visible(query)) { return 0.0; }
         else { 
-            // we now return the perception strength: 1 / (PERCEIVED_WEIGHT * dist_sqrd)
-            return 1 / (PERCEIVED_WEIGHT * Math.sqrt(dist_sqrd));
+            // we now return the perception strength: e^(-PERCEIVED_WEIGHT*dist)
+            return Math.exp(-(PERCEIVED_WEIGHT * Math.sqrt(dist_sqrd)));
         }
     }
         
