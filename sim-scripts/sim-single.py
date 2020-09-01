@@ -37,13 +37,13 @@ pi = math.pi
 max_iter         = 200000
 state            = 25000
 log              = 25000
-graphics         = 1 
+graphics         = 1000
 initial_state    = "r"
 pos_stdv         = 0.0005
 ang_stdv         = 0.2
 num_agents       = 100
 alpha            = pi / 4.0
-perceived_weight = 4.375 
+perceived_weight = 40
 threshold        = 10
 velocity         = 0.00025
 # ----------------------------------------
