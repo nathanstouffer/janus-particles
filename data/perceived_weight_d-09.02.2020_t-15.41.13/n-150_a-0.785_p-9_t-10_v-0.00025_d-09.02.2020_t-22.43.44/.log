@@ -1,0 +1,46 @@
+
+header written to file
+Began Simulation
+Initial state written to file
+10000   iterations completed      25 s elapsed
+State 10000 saved to file
+20000   iterations completed      51 s elapsed
+State 20000 saved to file
+30000   iterations completed      76 s elapsed
+State 30000 saved to file
+40000   iterations completed     101 s elapsed
+State 40000 saved to file
+50000   iterations completed     126 s elapsed
+State 50000 saved to file
+60000   iterations completed     152 s elapsed
+State 60000 saved to file
+70000   iterations completed     176 s elapsed
+State 70000 saved to file
+80000   iterations completed     201 s elapsed
+State 80000 saved to file
+90000   iterations completed     225 s elapsed
+State 90000 saved to file
+100000  iterations completed     250 s elapsed
+State 100000 saved to file
+110000  iterations completed     274 s elapsed
+State 110000 saved to file
+120000  iterations completed     299 s elapsed
+State 120000 saved to file
+130000  iterations completed     323 s elapsed
+State 130000 saved to file
+140000  iterations completed     347 s elapsed
+State 140000 saved to file
+150000  iterations completed     372 s elapsed
+State 150000 saved to file
+160000  iterations completed     396 s elapsed
+State 160000 saved to file
+170000  iterations completed     420 s elapsed
+State 170000 saved to file
+180000  iterations completed     445 s elapsed
+State 180000 saved to file
+190000  iterations completed     469 s elapsed
+State 190000 saved to file
+200000  iterations completed     493 s elapsed
+State 200000 saved to file
+Final state written to file
+Simulation complete 200000  iterations     493 s elapsed
