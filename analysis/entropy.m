@@ -1,7 +1,10 @@
-function [S] = entropy(A,eps)
+function [S] = entropy(file_name,eps)
 %Calculate the entropy of the density map A
-%   Takes a square matrix A which is acting as a density map and calculates
+%   Takes a file name which holds a density map and calculates
 %   the entropy. The eps argument to avoid log(0)
+
+% Load file
+A = cell2mat(struct2cell(load(file_name)));
 
 % Grabs size and normalizes
 n = size(A); 
