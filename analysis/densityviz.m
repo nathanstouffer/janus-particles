@@ -1,67 +1,76 @@
-close all;
-clear all;
-clc;
+function densityvis(dir_name)
 
-tic;
-%% reading in
+    tic;
+    %prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-12.08.2020_t-13.41.45/";
+    postfix = ".csv";
 
-prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-07.31.2020_t-17.43.14/";
-prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-12.08.2020_t-13.41.45/";
+    %% figure out values of alpha and the perception strength
+    alpha = split(dir_name, '_');
+    alpha = alpha(2);
+    alpha = split(alpha, '-');
+    alpha = alpha(2);
 
-postfix = ".csv";
+    percep = split(dir_name, '_');
+    percep = percep(3);
+    percep = split(percep, '-');
+    percep = percep(2);
 
-seq = 5:5:20000;  % these are the files we have
-seqlen = length(seq); % how many frames?
+    %% reading in
 
-% process all files: replace true/false by 1/0 using sed on command line
-for i = 1:seqlen
-    infilename = prefix + seq(i) + postfix;
-    D{i} = csvread(infilename,1,1);
-end
+    seq = 5:5:20000;  % these are the files we have
+    seqlen = length(seq); % how many frames?
 
-D = cat(3,D{:});
-
-
-%%
-
-x = round(31.9999*squeeze(1-D(:,2,:))+0.5);  % second MATLAB coordinate, downwards
-y = round(31.9999*squeeze(D(:,1,:))+0.5); % first MATLAB coordinate
-theta = round(14.99/2/pi*squeeze(D(:,3,:))+0.5);
-s = squeeze(D(:,4,:));
-
-phi = linspace(0,360,16);
-
-figure('Name', 'Long term density overall');
-rho = full(sparse(x(:),y(:), ones(length(x(:)),1), 32,32));
-imagesc(rho);
-axis equal;
-axis off;
-
-
-figure('Name', 'Long term density by orientation');
-for i = 1:15 
-    subplot(4,4,i);
-    idx = (theta == i);
-    rho = full(sparse(x(idx(:)),y(idx(:)), ones(nnz(idx),1), 32,32));
-    imagesc(rho);
-    axis equal;
-    axis off;
-    title("Orientation " + phi(i));
-end
-
-figure('Name', 'Long term density by state');
-for state = 0:1
-    subplot(1,2,state+1);
-    idx = (s == state);
-    rho = full(sparse(x(idx(:)),y(idx(:)), ones(nnz(idx),1), 32,32));
-    imagesc(rho);
-    axis equal;
-    axis off;
-    if state
-        title('Active');
-    else
-        title('Passive');
+    % process all files
+    for i = 1:seqlen
+        infilename = dir_name + seq(i) + postfix;
+        D{i} = csvread(infilename,1,1);
     end
-end
 
-toc
+    D = cat(3,D{:});
+
+
+    %%
+
+    x = round(31.9999*squeeze(1-D(:,2,:))+0.5);  % second MATLAB coordinate, downwards
+    y = round(31.9999*squeeze(D(:,1,:))+0.5); % first MATLAB coordinate
+    theta = round(14.99/2/pi*squeeze(D(:,3,:))+0.5);
+    s = squeeze(D(:,4,:));
+
+    phi = linspace(0,360,16);
+
+    %figure('Name', 'Long term density overall');
+    rho = full(sparse(x(:),y(:), ones(length(x(:)),1), 32,32));
+    %imagesc(rho);
+    %axis equal;
+    %axis off;
+    fout_name = join(['../data/phase-portrait/sim/histograms/hist-alpha-', alpha, '-percep-', percep, '.mat'], '');
+    save(fout_name, 'rho')
+
+    % figure('Name', 'Long term density by orientation');
+    % for i = 1:15 
+    %     subplot(4,4,i);
+    %     idx = (theta == i);
+    %     rho = full(sparse(x(idx(:)),y(idx(:)), ones(nnz(idx),1), 32,32));
+    %     imagesc(rho);
+    %     axis equal;
+    %     axis off;
+    %     title("Orientation " + phi(i));
+    % end
+    % 
+    % figure('Name', 'Long term density by state');
+    % for state = 0:1
+    %     subplot(1,2,state+1);
+    %     idx = (s == state);
+    %     rho = full(sparse(x(idx(:)),y(idx(:)), ones(nnz(idx),1), 32,32));
+    %     imagesc(rho);
+    %     axis equal;
+    %     axis off;
+    %     if state
+    %         title('Active');
+    %     else
+    %         title('Passive');
+    %     end
+    % end
+
+    toc
+end
