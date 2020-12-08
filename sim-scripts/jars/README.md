@@ -5,4 +5,4 @@ The hashes are shown below.
 
 *Note:*\
 sha256(*AgentSimulator.jar*)  = 204897cbc8dd343a3db9d179acf71ef92b69f5c696b80888eae28dc87382f57b\
-sha256(*AgentSimulatorG.jar*) = 64f52aa7afeca91bf25e7b9cf4f91986886a0d41bb88fe3ba280a9a20e675f5c
+sha256(*AgentSimulatorG.jar*) = ca20e6c9a15b95abb40bf938a41548b066656d363e80cd8c51f026cfe4bc8bd3

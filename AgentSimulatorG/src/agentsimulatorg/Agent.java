@@ -289,8 +289,8 @@ public class Agent {
         ret += "pos: (" + getXPos() + ", " + getYPos() + ")\n";     // pos
         ret += "theta: " + theta + "\n";            // orientation
         ret += "active: ";
-        if (active) { ret += "true"; }
-        else { ret += "false"; }
+        if (active) { ret += "1"; }
+        else { ret += "0"; }
         ret += "\n";
         return ret;
     }
