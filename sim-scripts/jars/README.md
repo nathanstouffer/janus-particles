@@ -4,5 +4,5 @@ Both jars take in a graphics field in their config file, but *AgentSimulator.jar
 The hashes are shown below.
 
 *Note:*\
-sha256(*AgentSimulator.jar*)  = 204897cbc8dd343a3db9d179acf71ef92b69f5c696b80888eae28dc87382f57b\
-sha256(*AgentSimulatorG.jar*) = ca20e6c9a15b95abb40bf938a41548b066656d363e80cd8c51f026cfe4bc8bd3
+sha256(*AgentSimulator.jar*)  = 4810a693b63e1cfec49a60dea50af78a8ffa813ca18e7d5f04619c0121758fea\
+sha256(*AgentSimulatorG.jar*) = 4c315bab944520ec25bf1cb9bea69371b0b7e7f8eaa0442521b25f60445b06a2

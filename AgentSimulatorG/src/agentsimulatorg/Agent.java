@@ -279,7 +279,9 @@ public class Agent {
     /* method to return information required for the file */
     public String fileInfo() {
         // return string of the form "id,x,y,theta,active"
-        return id + "," + getXPos() + "," + getYPos() + "," + theta + "," + active;
+        String a = "0";
+        if (active) { a = "1"; }
+        return id + "," + getXPos() + "," + getYPos() + "," + theta + "," + a;
     }
     
     /* to string method */
