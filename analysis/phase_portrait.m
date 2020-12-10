@@ -42,6 +42,10 @@ figure;
 heatmap = reshape(S,sqrt(n-2),sqrt(n-2));
 surf(A,P,heatmap);
 
+title('Entropy')
+xlabel('Alpha')
+ylabel('Perception Threshold')
+zlabel('Entropy')
 
 end
 
