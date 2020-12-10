@@ -1,19 +1,23 @@
 function densityvis(dir_name)
-
+  
     tic;
     %prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-12.08.2020_t-13.41.45/";
     postfix = ".csv";
 
     %% figure out values of alpha and the perception strength
-    alpha = split(dir_name, '_');
+    alpha = split(dir_name, '/');
+    alpha = alpha(numel(alpha));
+    alpha = split(alpha, '_a-');
     alpha = alpha(2);
-    alpha = split(alpha, '-');
-    alpha = alpha(2);
+    alpha = split(alpha, '_');
+    alpha = alpha(1);
 
-    percep = split(dir_name, '_');
-    percep = percep(3);
-    percep = split(percep, '-');
-    percep = percep(2);
+    thresh = split(dir_name, '/');
+    thresh = thresh(numel(thresh));
+    thresh = split(thresh, '_t-');
+    thresh = thresh(2);
+    thresh = split(thresh, '_');
+    thresh = thresh(1);
 
     %% reading in
 
@@ -22,7 +26,7 @@ function densityvis(dir_name)
 
     % process all files
     for i = 1:seqlen
-        infilename = dir_name + seq(i) + postfix;
+        infilename = dir_name + "/" + seq(i) + postfix;
         D{i} = csvread(infilename,1,1);
     end
 
@@ -43,7 +47,7 @@ function densityvis(dir_name)
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = join(['../data/phase-portrait/sim/histograms/particlesim-alpha-', alpha, '-percep-', percep, '.mat'], '');
+    fout_name = join(['../data/phase-portrait/sim/histograms/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
     % figure('Name', 'Long term density by orientation');
