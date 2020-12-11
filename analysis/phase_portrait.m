@@ -27,7 +27,7 @@ for k = 3:n
     A(k-2) = alpha;
     P(k-2) = percep;
     
-    S(k-2) = entropy(strcat(directory_name,"/",X(k).name), 0.00001);
+    S(k-2) = entropy(strcat(directory_name,"/",X(k).name));
     
     
 end
