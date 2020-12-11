@@ -7,12 +7,12 @@ reltol = 0.1; % default: 1e-3;
 abstol = 0.01; % default: 1e-6;
 
 R = 250;  % 250 um side length of the 0-1-square
-N = 16; % spatial resolution
+N = 32; % spatial resolution
 h_x = R/N; % spatial step in um
 
 phi = 24; % angular resolution
 
-T = 1500;  % simulation duration
+T = 3500;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 
