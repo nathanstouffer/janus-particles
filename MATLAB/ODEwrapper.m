@@ -13,10 +13,10 @@ h_x = R/N; % spatial step in um
 
 phi = 24; % angular resolution
 
-T = 10000;  % simulation duration
+T = 3000;  % simulation duration
 
 n = 200; % "number" of particles --- total initial density
-alpha = pi/4;
+alpha = pi/2;
 
 Pstar = 2*alpha*n/pi/pi/N; % activation threshold
 v = 0.2; % activation drift (um/s)
@@ -77,30 +77,31 @@ toc
 % end
 
 %% viz: densities over time
-% 
-% figure;
-% phistep = 3;
-% tstep = 10;
-% for tt = 1:tstep:length(t)
-%     stack = reshape(y(tt,:),[N,N,phi]);
-%     
-%     for p = 1:phistep:phi
-%         subplot(ceil(length(t)/tstep),phi/phistep+1,(1+(p-1)/phistep+floor(tt/tstep)*(phi/phistep+1)));
-%         imagesc(stack(:,:,p));
-%         title("t = " + t(tt) + "s, phi = " + p);
-%         axis tight;
-%         axis equal;
-%         axis off;
-%         box off;
-%     end
-%     subplot(ceil(length(t)/tstep),phi/phistep+1,ceil(tt/tstep)*(phi/phistep+1));
-%     imagesc(sum(stack,3));
-%     axis tight;
-%     axis equal;
-%     axis off;
-%     box off;
-%     disp("at t = " + t(tt) + "s: n = " + (sum(stack,'all')) );
-% end
+
+figure;
+phistep = 3;
+tstep = 10;
+for tt = 1:tstep:length(t)
+    stack = reshape(y(tt,:),[N,N,phi]);
+    
+    for p = 1:phistep:phi
+        subplot(ceil(length(t)/tstep),phi/phistep+1,(1+(p-1)/phistep+floor(tt/tstep)*(phi/phistep+1)));
+        imagesc(stack(:,:,p));
+        title("t = " + t(tt) + "s, phi = " + p);
+        axis tight;
+        axis equal;
+        axis off;
+        box off;
+    end
+    subplot(ceil(length(t)/tstep),phi/phistep+1,ceil(tt/tstep)*(phi/phistep+1));
+    imagesc(sum(stack,3));
+    axis tight;
+    axis equal;
+    axis off;
+    box off;
+    disp("at t = " + t(tt) + "s: n = " + (sum(stack,'all')) );
+end
+
 
 %% movie
 figure;
