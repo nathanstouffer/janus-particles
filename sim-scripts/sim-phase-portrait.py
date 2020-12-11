@@ -38,7 +38,7 @@ graphics         = 0
 initial_state    = "r"
 pos_stdv         = 0.0008
 ang_stdv         = 0.1348
-num_agents       = 200
+num_agents       = 75
 alpha            = 0
 perceived_weight = 2*pi
 threshold        = 0#(2*alpha*num_agents)/(pi*pi)
@@ -49,9 +49,11 @@ display_graphics = False
 
 res = 32
 
+pcpi = (2*pi*num_agents)/(pi*pi)
+
 # range of values for alpha and threshold
-a_range = [0.0, 2*pi]
-t_range = [0.0, 30.0]
+a_range = [pi/res, pi]
+t_range = [1.2/res, 1.2]
 
 sim_start = datetime.datetime.now().strftime("d-%m.%d.%Y_t-%H.%M.%S")
 subprocess.run(["mkdir", "../data/phase-portrait/sim/raw-output/" + sim_start + "/"])
@@ -61,8 +63,9 @@ start = time.time()
 for a in range(0, res):
     for t in range(0, res):
         # compute alpha and threshold
-        alpha     = a * float(a_range[1]-a_range[0])/res
-        threshold = t * float(t_range[1]-t_range[0])/res
+        alpha     = a_range[0] + a * float(a_range[1]-a_range[0])/res
+        threshold = t_range[0] + t * float(t_range[1]-t_range[0])/res
+        threshold *= pcpi
 
         cur = time.time()
         print("\nITERATION", a*res+t+1, "      ", round(cur-start), "seconds elapsed (in total)\n", flush=True)
