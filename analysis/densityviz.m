@@ -21,7 +21,7 @@ function densityvis(dir_name)
 
     %% reading in
 
-    seq = 5:5:20000;  % these are the files we have
+    seq = 5000:5:20000;  % these are the files we have
     seqlen = length(seq); % how many frames?
 
     % process all files

@@ -1,4 +1,4 @@
-function [S] = phase_portrait(directory_name)
+function [S] = phase_portrait_copy(directory_name)
 %Draws a phase portrait from the .mat files in the desired directory
 %   Input a directory name with only .mat files in it
 
@@ -37,15 +37,18 @@ end
 figure;
 plot3(A,P,S,'x');
 
-A = unique(A);
-P = unique(P);
-
 res = 32;
-test = linspace(1.2/res,1.2,32);
+disc_perc = linspace(1.2/res,1.2,32);
+disc_alph = linspace(pi/res,pi,32);
 
 figure;
-heatmap = reshape(S,sqrt(n-2),sqrt(n-2));
-surf(A,test,heatmap);
+heatmap = zeros(sqrt(n-2),sqrt(n-2));
+for k=1:len(A)
+    i = index_of(P(k), S(k));
+    j = index_of(A(k), S(k));
+    heatmap(i,j) = S(k);
+end
+imagesc(heatmap);
 
 title('Entropy')
 xlabel('Alpha')
@@ -54,3 +57,10 @@ zlabel('Entropy')
 
 end
 
+function i = index_of(vec, val)
+    for i=1:len(vec)
+	if val < vec(i)
+            break;
+	end
+    end
+end
