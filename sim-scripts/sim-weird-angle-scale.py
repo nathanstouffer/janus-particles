@@ -25,6 +25,13 @@ def outDir():
     # return directory name
     return name
 
+def linspace(a, b, steps):
+    list = [ a ]
+    size = (b-a)/(steps-1)
+    for i in range(0, steps-1):
+        list.append(list[-1]+size)
+    return list
+
 
 # set pi variable
 pi = math.pi
@@ -59,16 +66,17 @@ subprocess.run(["mkdir", "../data/phase-portrait/sim/raw-output/" + sim_start + 
 
 start = time.time()
 # nested for loop to discretize the phase space
-for a in range(0, res):
-    for t in range(0, res):
+counter = 0
+for a in linspace(a_range[0], a_range[1], res):
+    for t in linspace(t_range[0], t_range[1], res):
+        counter += 1
         # compute alpha and threshold
-        alpha     = a_range[0] + a * float(a_range[1]-a_range[0])/res
+        alpha = a
         pcpi = (2*alpha*num_agents)/(pi*pi)
-        threshold = t_range[0] + t * float(t_range[1]-t_range[0])/res
-        threshold *= pcpi
+        threshold = t * pcpi
 
         cur = time.time()
-        print("\nITERATION", a*res+t+1, "      ", round(cur-start), "seconds elapsed (in total)\n", flush=True)
+        print("\nITERATION", counter, "      ", round(cur-start), "seconds elapsed (in total)\n", flush=True)
 
         # declare output directory
         out_dir = outDir()
