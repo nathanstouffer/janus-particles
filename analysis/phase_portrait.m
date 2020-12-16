@@ -1,4 +1,4 @@
-function [S] = phase_portrait(directory_name)
+function phase_portrait(directory_name)
 %Draws a phase portrait from the .mat files in the desired directory
 %   Input a directory name with only .mat files in it
 
@@ -9,6 +9,11 @@ S = zeros(1,n-2); % Empty entropy vector
 
 A = zeros(1,n-2);
 P = zeros(1,n-2);
+
+res = 32;
+disc_alph = linspace(pi/res,pi,res);
+disc_perc = linspace(1.2/res,1.2,res);
+num_agents = 100;
 
 for k = 3:n
     fin = X(k).name;
@@ -24,8 +29,10 @@ for k = 3:n
     percep = percep(1);
     percep = str2num(percep{1});
     
+    p_scale = (2*alpha*num_agents/(pi*pi));
+    
     A(k-2) = alpha;
-    P(k-2) = percep;
+    P(k-2) = percep/p_scale;
     
     S(k-2) = entropy(strcat(directory_name,"/",X(k).name));
     
@@ -35,12 +42,15 @@ end
 figure;
 plot3(A,P,S,'x');
 
-A = unique(A);
-P = unique(P);
-
 figure;
-heatmap = reshape(S,sqrt(n-2),sqrt(n-2));
-surf(A,P,heatmap);
+heatmap = zeros(sqrt(n-2),sqrt(n-2));
+for k=1:length(A)
+    i = closest_index(disc_perc, P(k), 0.01);
+    j = closest_index(disc_alph, A(k), 0.01);
+    heatmap(i,j) = S(k);
+end
+
+im = imagesc(disc_alph, disc_perc, heatmap);
 
 title('Entropy')
 xlabel('Alpha')
@@ -49,3 +59,11 @@ zlabel('Entropy')
 
 end
 
+function j = closest_index(vec, val, eps)
+    j = 0;
+    for i=1:length(vec)
+        if abs(vec(i) - val) < eps
+            j = i;
+        end
+    end
+end
