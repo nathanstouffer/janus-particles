@@ -13,6 +13,7 @@ P = zeros(1,n-2);
 res = 32;
 disc_alph = linspace(pi/res,pi,res);
 disc_perc = linspace(1.2/res,1.2,res);
+num_agents = 100;
 
 for k = 3:n
     fin = X(k).name;
@@ -28,7 +29,7 @@ for k = 3:n
     percep = percep(1);
     percep = str2num(percep{1});
     
-    p_scale = (2*alpha*75/(pi*pi));
+    p_scale = (2*alpha*num_agents/(pi*pi));
     
     A(k-2) = alpha;
     P(k-2) = percep/p_scale;
@@ -44,12 +45,12 @@ plot3(A,P,S,'x');
 figure;
 heatmap = zeros(sqrt(n-2),sqrt(n-2));
 for k=1:length(A)
-    i = closest_index(disc_perc, P(k), 0.001);
-    j = closest_index(disc_alph, A(k), 0.001);
+    i = closest_index(disc_perc, P(k), 0.01);
+    j = closest_index(disc_alph, A(k), 0.01);
     heatmap(i,j) = S(k);
 end
 
-im = imagesc(heatmap);
+im = imagesc(disc_alph, disc_perc, heatmap);
 
 title('Entropy')
 xlabel('Alpha')
@@ -59,7 +60,7 @@ zlabel('Entropy')
 end
 
 function j = closest_index(vec, val, eps)
-    j = 0
+    j = 0;
     for i=1:length(vec)
         if abs(vec(i) - val) < eps
             j = i;
