@@ -1,4 +1,4 @@
-function [rho_final] = PDEsimulation(alpha,p,spatialRes)
+function [rho_final] = PDEsimulation(alpha,p,spatialRes,angleRes)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -10,9 +10,9 @@ R = 250;  % 250 um side length of the 0-1-square
 N = spatialRes; % spatial resolution
 h_x = R/N; % spatial step in um
 
-phi = 24; % angular resolution
+phi = angleRes; % angular resolution
 
-T = 3500;  % simulation duration
+T = 5000;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 
