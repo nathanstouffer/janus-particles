@@ -12,7 +12,7 @@ h_x = R/N; % spatial step in um
 
 phi = angleRes; % angular resolution
 
-T = 5000;  % simulation duration
+T = 7500;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 
@@ -53,9 +53,15 @@ tic;
 [t,y] = ode45(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 toc
 
+superstack = zeros(N,N,11);
+superstack(:,:,1) = sum(reshape(y(1,:),[N,N,phi]),3);
 
-stack = reshape(y(end,:),[N,N,phi]);
-rho_final = sum(stack,3);
+for i = 1:10
+    stack = reshape(y((i*10 + 1),:),[N,N,phi]);
+    stack = sum(stack,3);
+    superstack(:,:,i+1) = stack;
+end
+rho_final = superstack;
 %% helper function for progress report
 
 function status = MyOutputFcn(t,y,flag,endt)
