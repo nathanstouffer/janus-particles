@@ -21,7 +21,7 @@ function densityvis(dir_name)
 
     %% reading in
 
-    seq = 5000:10:20000;  % these are the files we have
+    seq = 25000:10:50000;  % these are the files we have
     seqlen = length(seq); % how many frames?
 
     % process all files
@@ -47,7 +47,7 @@ function densityvis(dir_name)
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
+    fout_name = "../rho.mat";%join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
     % figure('Name', 'Long term density by orientation');
