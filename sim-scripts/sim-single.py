@@ -34,8 +34,8 @@ pi = math.pi
 
 # configuration variables
 # ----------------------------------------
-max_iter         = 20000
-state            = 5000
+max_iter         = 50000
+state            = 5
 log              = 5000
 graphics         = 0 
 initial_state    = "r"
