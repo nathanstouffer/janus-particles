@@ -1,0 +1,14 @@
+
+header written to file
+Began Simulation
+Initial state written to file
+5000    iterations completed       2 s elapsed
+State 5000 saved to file
+10000   iterations completed       4 s elapsed
+State 10000 saved to file
+15000   iterations completed       6 s elapsed
+State 15000 saved to file
+20000   iterations completed       8 s elapsed
+State 20000 saved to file
+Final state written to file
+Simulation complete 20000   iterations       8 s elapsed
