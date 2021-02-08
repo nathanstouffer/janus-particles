@@ -47,7 +47,7 @@ function densityvis(dir_name)
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = join(['../data/phase-portrait/sim/histograms/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
+    fout_name = join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
     % figure('Name', 'Long term density by orientation');

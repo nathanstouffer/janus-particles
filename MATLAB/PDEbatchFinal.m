@@ -7,7 +7,7 @@ disc = 32; % Discritization
 alpha = linspace(pi/disc,pi,disc);
 
 
-for i = 1:disc
+parfor i = 1:disc
     
     p_c_alpha = 2*alpha(i)*n/pi/pi/32;
     

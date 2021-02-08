@@ -1,4 +1,4 @@
-function [rho_final] = PDEsimulation(alpha,p)
+function [rho_final] = PDEsimulation(alpha,p,spatialRes,angleRes)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -7,12 +7,12 @@ reltol = 0.1; % default: 1e-3;
 abstol = 0.01; % default: 1e-6;
 
 R = 250;  % 250 um side length of the 0-1-square
-N = 32; % spatial resolution
+N = spatialRes; % spatial resolution
 h_x = R/N; % spatial step in um
 
-phi = 24; % angular resolution
+phi = angleRes; % angular resolution
 
-T = 3500;  % simulation duration
+T = 7500;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 
@@ -53,9 +53,15 @@ tic;
 [t,y] = ode45(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 toc
 
+superstack = zeros(N,N,11);
+superstack(:,:,1) = sum(reshape(y(1,:),[N,N,phi]),3);
 
-stack = reshape(y(end,:),[N,N,phi]);
-rho_final = sum(stack,3);
+for i = 1:10
+    stack = reshape(y((i*10 + 1),:),[N,N,phi]);
+    stack = sum(stack,3);
+    superstack(:,:,i+1) = stack;
+end
+rho_final = superstack;
 %% helper function for progress report
 
 function status = MyOutputFcn(t,y,flag,endt)
