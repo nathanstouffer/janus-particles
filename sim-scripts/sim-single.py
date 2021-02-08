@@ -35,13 +35,13 @@ pi = math.pi
 # configuration variables
 # ----------------------------------------
 max_iter         = 20000
-state            = 5000
+state            = 10
 log              = 5000
 graphics         = 0 
 initial_state    = "r"
 pos_stdv         = 0.0008
 ang_stdv         = 0.1348
-num_agents       = 75
+num_agents       = 200
 alpha            = pi / 2.0
 perceived_weight = 2*pi
 threshold        = 31.83098861837907#(2*alpha*num_agents)/(pi*pi)
