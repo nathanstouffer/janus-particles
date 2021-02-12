@@ -4,12 +4,12 @@ function [Kernel] = kernel_functionfinal(alpha,orientation,N)
     % I'm assuming that the size will be even (64,128,256 etc.)
     
     %Just a helpful term that gives us the center
-    middle = N/2 + 1;
+    middle = N + 1;
     
     % Initializes a unit vector in the orientation direction
     u_theta = [cos(orientation),-sin(orientation)];
     
-    coords = (1:N+1) - middle; % Creates an array [-N/2:N/2]
+    coords = (1:2*N+1) - middle; % Creates an array [-N:N]
     
     [x,y] = meshgrid(coords); % Creaes two matrices (x and y) with coords
 
