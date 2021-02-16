@@ -43,7 +43,7 @@ L = (-Df'*Df-Db'*Db)/2; % Laplacian is average of fwd/bwd grad-divergence compos
 
 
 % setting up kernel libraries
-K = Klibfunc(alpha,phi,2*N);
+K = Klibfunc(alpha,phi,N);
 
 tspan = (0:0.01:1)*T;
 
