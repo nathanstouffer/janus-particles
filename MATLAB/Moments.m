@@ -1,4 +1,4 @@
-function [M2, M3] = Moments(rho)
+function [M2, M3, M4] = Moments(rho)
 %Finds moments of the density image rho
     % rho should be square
     
@@ -26,9 +26,14 @@ I2 = I2./ max(max(I2));
 I3 = (I_x.^2+I_y.^2).^(1.5);
 I3 = I3./ max(max(I3));
 
+% For the fourth-moment we square it all
+I4 = (I_x.^2 + I_y.^2).^2;
+I4 = I4./ max(max(I4));
+
 % Pointwise multiply with rho and sum
 M2 = sum(I2.*rho,'all');
 M3 = sum(I3.*rho,'all');
+M4 = sum(I4.*rho,'all');
 
 end
 
