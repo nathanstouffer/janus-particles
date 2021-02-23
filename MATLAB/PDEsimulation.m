@@ -3,8 +3,8 @@ function [rho_final] = PDEsimulation(alpha,p,spatialRes,angleRes)
 %   Detailed explanation goes here
 
 
-reltol = 0.1; % default: 1e-3;
-abstol = 0.01; % default: 1e-6;
+reltol = 0.01; % default: 1e-3;
+abstol = 0.001; % default: 1e-6;
 
 R = 250;  % 250 um side length of the 0-1-square
 N = spatialRes; % spatial resolution
