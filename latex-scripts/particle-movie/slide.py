@@ -5,7 +5,7 @@ script, file_name, time_step = argv
 l = 7
 edge = 0.5
 
-output  = "\\begin{tikzpicture}[scale=0.3]\n% bounding rectangle"
+output  = "\\begin{tikzpicture}[scale=\\tikzscale]\n% bounding rectangle"
 output += "\n\\draw [very thick] (0,0) rectangle (" +str(l+2*edge) + "," + str(l+2*edge) + ");"
 output += "\n% agents"
 
