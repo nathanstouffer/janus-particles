@@ -1,6 +1,6 @@
 from sys import argv
 
-script, file_name = argv
+script, file_name, time_step = argv
 
 l = 7
 edge = 0.5
@@ -21,6 +21,6 @@ fin.close()
 
 output += "\n\\end{tikzpicture}"
 
-fout = open("output/" + file_name.split("/")[-1][:-4] + ".tex", 'w')
+fout = open("output/particlemovie-t" + str(time_step) + ".tex", 'w')
 fout.write(output)
 fout.close()
