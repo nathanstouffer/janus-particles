@@ -1,10 +1,17 @@
-function densityvis(dir_name)
+function rho = densityvis(dir_name, dim, t_start)
   
     tic;
     %prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-12.08.2020_t-13.41.45/";
     postfix = ".csv";
 
-    %% figure out values of alpha and the perception strength
+    %% figure out values of num and alpha and the perception strength
+    num = split(dir_name, '/');
+    num = num(numel(num));
+    num = split(num, 'n-');
+    num = num(2);
+    num = split(num, '_');
+    num = num(1);
+    
     alpha = split(dir_name, '/');
     alpha = alpha(numel(alpha));
     alpha = split(alpha, '_a-');
@@ -21,7 +28,7 @@ function densityvis(dir_name)
 
     %% reading in
 
-    seq = 10000:10:20000;  % these are the files we have
+    seq = t_start:10:20000;  % these are the files we have
     seqlen = length(seq); % how many frames?
 
     % process all files
@@ -34,7 +41,7 @@ function densityvis(dir_name)
 
 
     %%
-    dim = 32;
+    %dim = 64;
     x = round((dim-0.0001)*squeeze(1-D(:,2,:))+0.5);  % second MATLAB coordinate, downwards
     y = round((dim-0.0001)*squeeze(D(:,1,:))+0.5); % first MATLAB coordinate
     theta = round(14.99/2/pi*squeeze(D(:,3,:))+0.5);
@@ -47,7 +54,8 @@ function densityvis(dir_name)
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = "rho.mat";%join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
+    fout_name = join(['../data/convergence_d-02.26.2021_t-16.51.35/hists/n', num, '_t' , num2str(t_start), '_res', num2str(dim), '.mat'], '');
+    %join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
     % figure('Name', 'Long term density by orientation');
