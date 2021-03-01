@@ -1,9 +1,0 @@
-max_iter,20000
-initial_state,r
-pos_stdv,8.0E-4
-ang_stdv,0.1348
-num_agents,50
-alpha,1.57079632679
-perceived_weight,6.283185307
-threshold,63.6619772368
-velocity,8.0E-4
