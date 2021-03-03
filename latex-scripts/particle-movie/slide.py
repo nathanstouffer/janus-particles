@@ -1,11 +1,11 @@
 from sys import argv
 
-script, file_name = argv
+script, file_name, time_step = argv
 
 l = 7
 edge = 0.5
 
-output  = "\\begin{tikzpicture}[scale=0.3]\n% bounding rectangle"
+output  = "\\begin{tikzpicture}[scale=\\particlemovietikzscale]\n% bounding rectangle"
 output += "\n\\draw [very thick] (0,0) rectangle (" +str(l+2*edge) + "," + str(l+2*edge) + ");"
 output += "\n% agents"
 
@@ -21,6 +21,6 @@ fin.close()
 
 output += "\n\\end{tikzpicture}"
 
-fout = open("output/" + file_name.split("/")[-1][:-4] + ".tex", 'w')
+fout = open("output/particlemovie-t" + str(time_step) + ".tex", 'w')
 fout.write(output)
 fout.close()

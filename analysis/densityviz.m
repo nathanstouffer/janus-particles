@@ -1,10 +1,17 @@
-function densityvis(dir_name)
+function rho = densityvis(dir_name, dim, t_start)
   
     tic;
     %prefix = "../data/n-200_a-0.785_p-6.283_t-31.83098861837907_v-0.0008_d-12.08.2020_t-13.41.45/";
     postfix = ".csv";
 
-    %% figure out values of alpha and the perception strength
+    %% figure out values of num and alpha and the perception strength
+    num = split(dir_name, '/');
+    num = num(numel(num));
+    num = split(num, 'n-');
+    num = num(2);
+    num = split(num, '_');
+    num = num(1);
+    
     alpha = split(dir_name, '/');
     alpha = alpha(numel(alpha));
     alpha = split(alpha, '_a-');
@@ -21,7 +28,7 @@ function densityvis(dir_name)
 
     %% reading in
 
-    seq = 5000:10:20000;  % these are the files we have
+    seq = t_start:10:20000;  % these are the files we have
     seqlen = length(seq); % how many frames?
 
     % process all files
@@ -34,20 +41,21 @@ function densityvis(dir_name)
 
 
     %%
-
-    x = round(31.9999*squeeze(1-D(:,2,:))+0.5);  % second MATLAB coordinate, downwards
-    y = round(31.9999*squeeze(D(:,1,:))+0.5); % first MATLAB coordinate
+    %dim = 64;
+    x = round((dim-0.0001)*squeeze(1-D(:,2,:))+0.5);  % second MATLAB coordinate, downwards
+    y = round((dim-0.0001)*squeeze(D(:,1,:))+0.5); % first MATLAB coordinate
     theta = round(14.99/2/pi*squeeze(D(:,3,:))+0.5);
     s = squeeze(D(:,4,:));
 
     phi = linspace(0,360,16);
 
     %figure('Name', 'Long term density overall');
-    rho = full(sparse(x(:),y(:), ones(length(x(:)),1), 32,32));
+    rho = full(sparse(x(:),y(:), ones(length(x(:)),1), dim,dim));
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = "../rho.mat";%join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
+    fout_name = join(['../data/convergence_d-03.01.2021_t-15.20.03/hists/n', num, '_t' , num2str(t_start), '_res', num2str(dim), '.mat'], '');
+    %join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
     % figure('Name', 'Long term density by orientation');
