@@ -1,10 +1,10 @@
-function [rho_final] = PDEsimulation(alpha,p,spatialRes,angleRes)
+function [rho_final, angle_info] = PDEsimulation(alpha,p,spatialRes,angleRes)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
 
-reltol = 0.001; % default: 1e-3;
-abstol = 0.0001; % default: 1e-6;
+reltol = 0.1; % default: 1e-3;
+abstol = 0.01; % default: 1e-6;
 
 R = 250;  % 250 um side length of the 0-1-square
 N = spatialRes; % spatial resolution
@@ -53,10 +53,12 @@ tic;
 [t,y] = ode45(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 toc
 
+angle_info = reshape(y(end,:),[N,N,phi]);
+
 superstack = zeros(N,N,19);
 
 % Saves the initial condition
-superstack(:,:,1) = sum(reshape(y(1,:),[N,N,phi]),3); 
+superstack(:,:,1) = sum(reshape(y(1,:),[N,N,phi]),3);
 
 % Densely Sampled in the beginning
 for i = 1:10
@@ -71,6 +73,7 @@ for i = 3:10
     stack = sum(stack,3);
     superstack(:,:,i+9) = stack;
 end
+
 rho_final = superstack;
 
 %% helper function for progress report
