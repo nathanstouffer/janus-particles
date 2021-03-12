@@ -1,4 +1,4 @@
-function [rho_final, angle_info] = PDEsimulation(alpha,p,spatialRes,angleRes)
+function [rho_final] = PDEsimulation(alpha,p,spatialRes,angleRes)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -53,7 +53,7 @@ tic;
 [t,y] = ode45(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 toc
 
-angle_info = reshape(y(end,:),[N,N,phi]);
+%angle_info = reshape(y(end,:),[N,N,phi]);
 
 superstack = zeros(N,N,19);
 
