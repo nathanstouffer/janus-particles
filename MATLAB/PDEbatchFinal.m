@@ -2,23 +2,25 @@
 
 
 n = 75; % Initial particle density
-disc = 32; % Discritization
+disc = 24; % Discritization
 
 alpha = linspace(pi/disc,pi,disc);
 
-for i = disc:-1:1
+for i = 1:disc
     
-    p_c_alpha = 2*alpha(i)*n/pi/pi/32;
+    p_c_alpha = 2*alpha(i)*n/pi/pi/64;
     
     perception = linspace(p_c_alpha/disc,(1.2)*p_c_alpha,disc);
 
     for k = 1:disc
     
-        X = PDEsimulation(alpha(i),perception(k),32,60);
+        X = PDEsimulation(alpha(i),perception(k),64,30);
 
-        file_name = strcat('../data/phase-portrait/pde/thumbnail-lowerres/PDESim-alpha-',num2str(alpha(i)),'-percep-',num2str(perception(k)),'.mat');
+        file_name = strcat('../data/phase-portrait/pde/thumbnail-roundtwo/PDESim-alpha-',num2str(alpha(i)),'-percep-',num2str(perception(k)),'.mat');
 
         save(file_name,'X');
+        
+        disc*(i-1) + k
     end
 end
 
