@@ -3,10 +3,10 @@ from sys import argv
 script, file_name, time_step = argv
 
 l = 7
-edge = 0.3
+edge = 0.2
 
 output  = "\\begin{tikzpicture}[scale=\\particlemovietikzscale]\n% bounding rectangle"
-output += "\n\\draw [very thick] (0,0) rectangle (" +str(l+2*edge) + "," + str(l+2*edge) + ");"
+output += "\n\\draw [thin] (0,0) rectangle (" +str(l+2*edge) + "," + str(l+2*edge) + ");"
 output += "\n% agents"
 
 fin = open(file_name, 'r')

@@ -1,6 +1,9 @@
 function [Activation] = activation_analysis(angular_data, alpha)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%Does some activation analysis of angular data
+%   Input angular data (should be n by n by angular resolution) and alpha
+%   value we ran the simulation at (this is almost always pi/2). Outputs an
+%   array same dimensions as angular data only it will be a binary image.
+%   imshow() works well to show it.
 
 % Grabs the size of the array (should be n by n by angle res)
 [n,m,z] = size(angular_data);
