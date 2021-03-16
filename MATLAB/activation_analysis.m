@@ -9,7 +9,7 @@ function [Activation] = activation_analysis(angular_data, alpha)
 K = Klibfunc(alpha,z,m);
 
 % Let's hard-code the threshold (Usually using P_c^alpha with 75 particles)
-P = 2*alpha*75/pi/pi/m;
+Pstar = 2*alpha*75/pi/pi/m;
 
 % Grabs the rho_int
 rho_int = sum(angular_data,3);
@@ -23,7 +23,7 @@ for i = 1:z
     
  % filter and ifft
     P = ifft2( rho_int_hat .* K{i} );
-    P = P(1:N, 1:N); % extract the relevant portion
+    P = P(1:m, 1:m); % extract the relevant portion
     f = (P >= Pstar); % Activation
     Activation(:,:,i) = f;
     
