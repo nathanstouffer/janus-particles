@@ -32,6 +32,26 @@ for i = 1:z
     
 end
 
+% compute the activation border and write to file
+for i = 1:15
+    % compute the center of mass of the matrix
+    com = [0 0];
+    % initialize the info matrix
+    info = [alpha 0; com(1)/n com(2)/n];
+    % get the index of one of the points on the boundary
+    perim = bwperim(Activation(:,:,i));
+    [j k] = find(perim, 1, 'first');
+    % get the path as a list of pairs
+    % this is indexed as (row, col) from top left
+    mtx_path = bwtraceboundary(Activation(:,:,i), [j k], 'W');
+    % normalize the pixel values
+    mtx_path = (mtx_path./n)-0.5;
+    % switch to regular (x, y) indexing
+    path = [mtx_path(:,2) -mtx_path(:,1)];
+    info = [info(:,1) info(:,2); path(:,1) path(:,2)];
+    f_name = strcat('../latex-scripts/activation-border/input/angle', num2str(i), '.txt');
+    writematrix(info, f_name);
+end
 
 end
 
