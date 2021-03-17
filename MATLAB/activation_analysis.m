@@ -35,9 +35,11 @@ end
 % compute the activation border and write to file
 for i = 1:15
     % compute the center of mass of the matrix
-    com = [0 0];
+    com = [COMcross(angular_data(:,:,i)'), COMcross(angular_data(:,:,i))];
+    % scale and shift
+    com = com./n - [1/2,1/2];
     % initialize the info matrix
-    info = [alpha 0; com(1)/n com(2)/n];
+    info = [alpha 0; com(1) com(2)];
     % get the index of one of the points on the boundary
     perim = bwperim(Activation(:,:,i));
     [j k] = find(perim, 1, 'first');
