@@ -10,7 +10,7 @@ Each agent has a
  * orientation *\theta \in [0,2pi)*
  * half-angle *\alpha \in [0,pi]* that creates a field of view (picture shown for clarification)
 
-![Image of alpha](img/alpha.png)
+![Image of alpha](img/Paper_Images/alpha.png)
 
 In addition, the system keeps track of a velocity *v* and a perception threshold *p*.
 For agent *a* to percieve agent *b*, *b* must be in *a's* field of view, then the strength of the perception is inversely proportional to the distance between the agents.
