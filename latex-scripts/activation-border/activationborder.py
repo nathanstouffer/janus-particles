@@ -1,3 +1,4 @@
+import math
 
 scale = 8
 
@@ -25,8 +26,18 @@ for file_name in file_names:
     output += "\\draw [black, fill=black] (" + str(com_ang_x) + "," + str(com_ang_y) + ") circle (0.1);\n"
 
     line = fin.readline().rstrip()
-    alpha = float(line.split(",")[0])
+    theta = float(line.split(",")[0])
+    alpha = float(line.split(",")[1])
+    dot_x = 0.75*0.5*scale
+    dot_y = 0.80*0.5*scale
+    l_pt_x = dot_x+(0.5*math.cos(theta+alpha))
+    l_pt_y = dot_y+(0.5*math.sin(theta+alpha))
+    r_pt_x = dot_x+(0.5*math.cos(theta-alpha))
+    r_pt_y = dot_y+(0.5*math.sin(theta-alpha))
     output += "\n% vision cone\n"
+    output += "\\draw [black, fill=black] (" + str(dot_x) + "," + str(dot_y) + ") circle (0.05);\n"
+    output += "\\draw [black] (" + str(l_pt_x) + "," + str(l_pt_y) + ")"
+    output +=            " -- (" + str(r_pt_x) + "," + str(r_pt_y) + ");\n"
 
     output += "\n% activation border"
     line = fin.readline().rstrip()

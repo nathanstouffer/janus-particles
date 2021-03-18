@@ -42,7 +42,7 @@ for i = 1:15
     % scale and shift
     com_ang = com_ang./n - 0.5;
     % initialize the info matrix
-    info = [com(1) -com(2); com_ang(1) -com_ang(2); alpha 0];
+    info = [com(1) -com(2); com_ang(1) -com_ang(2); i*2*pi/z alpha];
     % get the index of one of the points on the boundary
     perim = bwperim(Activation(:,:,i));
     [j k] = find(perim, 1, 'first');
