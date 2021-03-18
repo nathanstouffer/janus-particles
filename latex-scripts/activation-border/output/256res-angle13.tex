@@ -1,10 +1,13 @@
 \begin{tikzpicture}[scale=\particlemovietikzscale]
 \node[inner sep=0pt, anchor=center] (angle) at (0,0) {\includegraphics[width=0.13\textwidth]{\angleimgdir/256res-angle13.png}};
 
-% vision cone
+% center of mass of the entire end state
+\draw (0.3125,0.625) node[cross=1.4pt] {};
 
-% center of mass
-\draw [black, fill=black] (0,0) circle (0.1);
+% center of mass of this angle
+\draw [black, fill=black] (0.4375,1.0625) circle (0.1);
+
+% vision cone
 
 % activation border
 \draw [black] (-3.6875,-0.09375) -- (-3.65625,-0.0625);

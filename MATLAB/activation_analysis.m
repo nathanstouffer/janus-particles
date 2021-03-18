@@ -32,14 +32,17 @@ for i = 1:z
     
 end
 
+com = [COMcross(rho_int) COMcross(rho_int')];
+com = com./n - 0.5;
+
 % compute the activation border and write to file
 for i = 1:15
     % compute the center of mass of the matrix
-    com = [COMcross(angular_data(:,:,i)'), COMcross(angular_data(:,:,i))];
+    com_ang = [COMcross(angular_data(:,:,i)), COMcross(angular_data(:,:,i)')];
     % scale and shift
-    com = com./n - [1/2,1/2];
+    com_ang = com_ang./n - 0.5;
     % initialize the info matrix
-    info = [alpha 0; com(1) com(2)];
+    info = [com(1) -com(2); com_ang(1) -com_ang(2); alpha 0];
     % get the index of one of the points on the boundary
     perim = bwperim(Activation(:,:,i));
     [j k] = find(perim, 1, 'first');
