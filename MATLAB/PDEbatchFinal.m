@@ -10,7 +10,7 @@ for i = 1:disc
     
     p_c_alpha = 2*alpha(i)*n/pi/pi/64;
     
-    perception = linspace(p_c_alpha/disc,(1.2)*p_c_alpha,disc);
+    perception = [p_c_alpha/20:p_c_alpha:1.2*(p_c_alpha)];
 
     for k = 1:disc
     
