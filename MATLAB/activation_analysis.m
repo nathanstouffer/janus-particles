@@ -34,15 +34,20 @@ end
 
 com = [COMcross(rho_int) COMcross(rho_int')];
 com = com./n - 0.5;
+com = [com(1) -com(2)];
+com = com + 0.5;
 
 % compute the activation border and write to file
-for i = 1:15
+for i = 1:16
     % compute the center of mass of the matrix
     com_ang = [COMcross(angular_data(:,:,i)), COMcross(angular_data(:,:,i)')];
     % scale and shift
     com_ang = com_ang./n - 0.5;
+    % flip axis and shift back
+    com_ang = [com_ang(1) -com_ang(2)];
+    com_ang = com_ang + 0.5;
     % initialize the info matrix
-    info = [com(1) -com(2); com_ang(1) -com_ang(2); i*2*pi/z alpha];
+    info = [com(1) com(2); com_ang(1) com_ang(2); (i-1)*2*pi/z alpha];
     % get the index of one of the points on the boundary
     perim = bwperim(Activation(:,:,i));
     [j k] = find(perim, 1, 'first');
@@ -53,6 +58,7 @@ for i = 1:15
     mtx_path = (mtx_path./n)-0.5;
     % switch to regular (x, y) indexing
     path = [mtx_path(:,2) -mtx_path(:,1)];
+    path = path+0.5;
     info = [info(:,1) info(:,2); path(:,1) path(:,2)];
     f_name = strcat('../latex-scripts/activation-border/input/angle', num2str(i), '.txt');
     writematrix(info, f_name);
