@@ -25,13 +25,17 @@ for i = 3:n
     % The angular averaging of end-state plus scaling and COM
     avg = angavg(temp(:,:,end));
     avg = avg ./ max(avg);
-    COM = round(sum(avg.*v)./sum(avg));
+    COM = sum(avg.*v)./sum(avg);
     
     % Micrometers
-    scale = 250./sz(1);
+    scale = 250./(sz(1)-1);
+    v = v.*scale;
+    COM = COM*scale;
+    x = v - COM;
+    x(end) - x(1) % For debugging. Shows that each is indeed 250 micrometers long
     
     % Plotting (shift each by their COM in order to center at zero)
-    plot((v-COM).*scale,avg,'DisplayName',str,'Linewidth',1.5);
+    plot(x,avg,'DisplayName',str,'Linewidth',1.5);
     hold on;
 end
 legend
