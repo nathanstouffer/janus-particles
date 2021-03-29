@@ -1,4 +1,4 @@
-function [angle_info, rho_final] = PDEsimulation_hotstart(alpha,p_ratio,spatialRes,angleRes,initial)
+function [angle_info, rho_final] = PDEsimulation_hotstart(alpha,percep,spatialRes,angleRes,initial)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -16,9 +16,9 @@ T = 10000;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 
-p_c_alpha = alpha*n/pi/pi/N; % Calculates p_c_alpha
+%p_c_alpha = alpha*n/pi/pi/N; % Calculates p_c_alpha
 
-Pstar = p_c_alpha*p_ratio; % activation threshold
+Pstar = percep; % activation threshold
 
 v = 0.2; % activation drift (um/s)
 D_xy = 0.02; % spatial diffusion coefficient (um^2/s)
