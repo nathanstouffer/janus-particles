@@ -14,7 +14,7 @@ initial = cell2mat(struct2cell(initial));
 
 for i = 1:disc
     
-    p_c_alpha = 2*alpha(i)*n/pi/pi/16;
+    p_c_alpha = 2*alpha(i)*n/pi/pi/64;
     
     perception = [p_c_alpha/20:p_c_alpha/20:1.2*(p_c_alpha)];
 
