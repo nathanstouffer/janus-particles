@@ -7,7 +7,7 @@ disc = 10; % Discritization
 
 alpha = linspace(pi/disc,pi,disc); % Alpha spacing
 
-initial = load('cohesion_start16_data.mat');
+initial = load('cohesion_start_16_data.mat');
 initial = cell2mat(struct2cell(initial));
 
 
@@ -19,7 +19,7 @@ for i = 1:disc
 
     for k = 1:disc
     
-        [A,X] = PDEsimulation_hotstart(alpha(i),perception(k),16,30,initial);
+        [X] = PDEsimulation_hotstart(alpha(i),perception(k),16,30,initial);
 
         file_name = strcat('../data/phase-portrait/pde/cohesion_test/PDESim-alpha-',num2str(alpha(i)),'-percep-',num2str(perception(k)),'.mat');
 
