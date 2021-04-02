@@ -2,12 +2,13 @@
 
 
 n = 75; % Initial particle density
-disc = 10; % Discritization
+disc = 24; % Discritization
 
 
 alpha = linspace(pi/disc,pi,disc); % Alpha spacing
 
-initial = load('cohesion_start_16_data.mat');
+% Loads the angular data to hotstart the PDE simulation
+initial = load('cohesion_start_64_data.mat');
 initial = cell2mat(struct2cell(initial));
 
 
@@ -19,9 +20,9 @@ for i = 1:disc
 
     for k = 1:disc
     
-        [X] = PDEsimulation_hotstart(alpha(i),perception(k),16,30,initial);
+        [X] = PDEsimulation_hotstart(alpha(i),perception(k),64,30,initial);
 
-        file_name = strcat('../data/phase-portrait/pde/cohesion_test/PDESim-alpha-',num2str(alpha(i)),'-percep-',num2str(perception(k)),'.mat');
+        file_name = strcat('../data/phase-portrait/pde/cohesion/PDESim-alpha-',num2str(alpha(i)),'-percep-',num2str(perception(k)),'.mat');
 
         save(file_name,'X');
         
