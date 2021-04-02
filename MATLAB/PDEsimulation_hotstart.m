@@ -1,4 +1,4 @@
-function [angle_info, rho_final] = PDEsimulation_hotstart(alpha,percep,spatialRes,angleRes,initial)
+function [rho_final] = PDEsimulation_hotstart(alpha,percep,spatialRes,angleRes,initial)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -55,25 +55,23 @@ tic;
 [t,y] = ode45(@(t,y) janus(y,N,phi,Pstar,v,D_phi,D_xy,K,-Db',-Df',L), tspan, rhostack(:), options);
 toc
 
-angle_info = reshape(y(end,:),[N,N,phi]);
-
-superstack = zeros(N,N,19);
+superstack = zeros(N,N,phi,19);
 
 % Saves the initial condition
-superstack(:,:,1) = sum(reshape(y(1,:),[N,N,phi]),3);
+superstack(:,:,:,1) = reshape(y(1,:),[N,N,phi]);
 
 % Densely Sampled in the beginning
 for i = 1:10
     stack = reshape(y(2*i+1,:),[N,N,phi]);
-    stack = sum(stack,3);
-    superstack(:,:,i+1) = stack;
+    %stack = sum(stack,3);
+    superstack(:,:,:,i+1) = stack;
 end
 
 % Spreads out sampling for the rest
 for i = 3:10
     stack = reshape(y((i*10 + 1),:),[N,N,phi]);
-    stack = sum(stack,3);
-    superstack(:,:,i+9) = stack;
+    %stack = sum(stack,3);
+    superstack(:,:,:,i+9) = stack;
 end
 
 rho_final = superstack;
