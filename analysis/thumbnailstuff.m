@@ -38,16 +38,16 @@ for k = 3:n
     A(k-2) = alpha;
     P(k-2) = percep/p_scale;
     
-    S(1,k-2) = entropy(strcat(directory_name,"/",X(k).name));
+    %S(1,k-2) = entropy(strcat(directory_name,"/",X(k).name));
     
     
     temp = load(strcat(directory_name,"/",X(k).name));
     temp = cell2mat(struct2cell(temp));
     temp = temp(:,:,:,end);
     temp = sum(temp,3);
-    m = Moments(temp(:,:,end));
+    %m = Moments(temp(:,:,end));
     
-    S(2:4,k-2) = m';
+    %S(2:4,k-2) = m';
     thumbnail(:,1+(w*(k-3)):w*(k-2)) = temp(:,:,end);
 
 end
