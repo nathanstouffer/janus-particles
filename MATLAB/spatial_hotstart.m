@@ -4,41 +4,7 @@ function [c] = spatial_hotstart(pdedata)
 %   sample the 2^n image and return 2^(n-1),2^(n-2), ... 2^(n-5) sampled
 %   images. It rescales them to 
 
-% Creates a cell array to store our data
-c = cell(1,6);
-c{1} = pdedata;
-
-
-% Sets pde data as the old data and calculates sum for rescaling
-old = pdedata;
-S = sum(old,'all');
-
-% Samples until 2^(n-5)
-for n = 1:5
-    
-    % Grab the old array size and initializes new array with 1/2 the size
-    sz = size(old);
-    new = zeros(sz(1)/2,sz(1)/2);
-    temp = zeros(sz(1)/2,sz(2)/2,60);
-    
-    % Goes through the old array skipping everyother pixel and places them
-    % in new array
-    for i = 1:sz(1)/2
-        for k = 1:sz(2)/2
-            new(i,k) = old(2*i,2*k);
-        end
-    end
-    
-    % We have to rescale new array to make sure it has a density of 75
-    new = new .* (S/sum(new,'all'));
-    temp(:,:,1) = new;
-    new = temp;
-    
-    % Stores the sampled array and makes it the old array
-    
-    c{n+1} = new;
-    old = new;
-end
+c = sampling(pdedata);
 
 % % For display purposes unessecary in final cut. 
 % figure;
@@ -51,8 +17,8 @@ end
 
 for i = 1:5
     sz = size(c{i+1});
-    [A,Y] = PDEsimulation_hotstart(pi/2,1,sz(1),60,c{i+1});
-    fname = strcat('hotstart_data_',num2str(sz(1)),'.mat');
+    [A,Y] = PDEsimulation_hotstart(pi/2,pi*75/pi/pi/sz(1),sz(1),60,c{i+1});
+    fname = strcat('hotstart2_data_',num2str(sz(1)),'.mat');
     save(fname,'Y');
     fname = strcat('angular_',fname);
     save(fname,'A')
