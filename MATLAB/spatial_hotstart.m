@@ -20,8 +20,6 @@ for i = 1:5
     [Y] = PDEsimulation_hotstart(pi/2,pi*75/pi/pi/sz(1),sz(1),60,c{i+1});
     fname = strcat('hotstart2_data_',num2str(sz(1)),'.mat');
     save(fname,'Y');
-    fname = strcat('angular_',fname);
-    save(fname,'A')
 end
     
 
