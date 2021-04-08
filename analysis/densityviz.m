@@ -54,7 +54,7 @@ function rho = densityvis(dir_name, dim, t_start)
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = join(['../data/convergence_d-02.26.2021_t-16.51.35/hists/n', num, '_t' , num2str(t_start), '_res', num2str(dim), '.mat'], '');
+    fout_name = join(['../data/convergence_d-03.01.2021_t-15.20.03/hists/n', num, '_t' , num2str(t_start), '_res', num2str(dim), '.mat'], '');
     %join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
