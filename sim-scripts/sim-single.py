@@ -42,10 +42,10 @@ initial_state    = "r"
 pos_stdv         = 0.0008
 ang_stdv         = 0.1348
 num_agents       = 200
-alpha            = pi / 2.0
+alpha            = 0.3927 #pi / 2.0
 perceived_weight = 2*pi
 p_c_alpha        = (2*alpha*num_agents)/(pi*pi)
-p_star           = 1
+p_star           = 1.1
 threshold        = p_star*p_c_alpha
 velocity         = 0.0008
 # ----------------------------------------
