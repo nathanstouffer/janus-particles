@@ -5,27 +5,28 @@ function rho = densityvis(dir_name, dim, t_start)
     postfix = ".csv";
 
     %% figure out values of num and alpha and the perception strength
-    num = split(dir_name, '/');
-    num = num(numel(num));
-    num = split(num, 'n-');
-    num = num(2);
-    num = split(num, '_');
-    num = num(1);
-    
-    alpha = split(dir_name, '/');
-    alpha = alpha(numel(alpha));
-    alpha = split(alpha, '_a-');
-    alpha = alpha(2);
-    alpha = split(alpha, '_');
-    alpha = alpha(1);
+%     num = split(dir_name, '/');
+%     num = num(numel(num));
+%     num = split(num, 'n-');
+%     num = num(2);
+%     num = split(num, '_');
+%     num = num(1);
+%     
+%     alpha = split(dir_name, '/');
+%     alpha = alpha(numel(alpha));
+%     alpha = split(alpha, '_a-');
+%     alpha = alpha(2);
+%     alpha = split(alpha, '_');
+%     alpha = alpha(1);
+% 
+%     thresh = split(dir_name, '/');
+%     thresh = thresh(numel(thresh));
+%     thresh = split(thresh, '_t-');
+%     thresh = thresh(2);
+%     thresh = split(thresh, '_');
+%     thresh = thresh(1);
 
-    thresh = split(dir_name, '/');
-    thresh = thresh(numel(thresh));
-    thresh = split(thresh, '_t-');
-    thresh = thresh(2);
-    thresh = split(thresh, '_');
-    thresh = thresh(1);
-
+    num = '200';
     %% reading in
 
     seq = t_start:10:20000;  % these are the files we have
@@ -54,7 +55,7 @@ function rho = densityvis(dir_name, dim, t_start)
     %imagesc(rho);
     %axis equal;
     %axis off;
-    fout_name = join(['../data/convergence_d-03.01.2021_t-15.20.03/hists/n', num, '_t' , num2str(t_start), '_res', num2str(dim), '.mat'], '');
+    fout_name = join(['../data/agent-polygon/hists/n', num, '_t' , num2str(t_start), '_res', num2str(dim), '.mat'], '');
     %join(['../data/phase-portrait/sim/histograms/500-agents/particlesim-alpha-', alpha, '-percep-', thresh, '.mat'], '');
     save(fout_name, 'rho')
 
