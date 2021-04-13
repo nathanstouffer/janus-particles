@@ -60,7 +60,7 @@ for i = 1:16
     path = [mtx_path(:,2) -mtx_path(:,1)];
     path = path+0.5;
     info = [info(:,1) info(:,2); path(:,1) path(:,2)];
-    f_name = strcat('../latex-scripts/activation-border/input/angle', num2str(i), '.txt');
+    f_name = strcat('../latex-scripts/activation-border/input/angle', num2str(i), 'polygon.txt');
     writematrix(info, f_name);
 end
 
