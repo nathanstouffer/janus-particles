@@ -12,7 +12,7 @@ h_x = R/N; % spatial step in um
 
 phi = angleRes; % angular resolution
 
-T = 7500;  % simulation duration
+T = 100000;  % simulation duration
 
 n = 75; % "number" of particles --- total initial density
 
