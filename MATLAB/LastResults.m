@@ -9,7 +9,7 @@ alpha = linspace(pi/24,pi,24);
 p_c_alpha = 2*alpha(end)*75/pi/pi/64;
 perception = [p_c_alpha/20:p_c_alpha/20:1.2*p_c_alpha];
 percep = perception(end);
-X = PDEsimulation_hotstart(alpha,percep,64,30,rho_0);
+X = PDEsimulation_hotstart(alpha(end),percep,64,30,rho_0);
 
 save('./corner_data.mat','X');
 
@@ -17,7 +17,7 @@ save('./corner_data.mat','X');
 p_c_alpha = 2*alpha(end-1)*75/pi/pi/64;
 perception = [p_c_alpha/20:p_c_alpha/20:1.2*p_c_alpha];
 percep = perception(end-1);
-X = PDEsimulation_hotstart(alpha,percep,64,30,rho_0);
+X = PDEsimulation_hotstart(alpha(end-1),percep,64,30,rho_0);
 
 save('./newF_data.mat','X');
 
@@ -25,7 +25,7 @@ save('./newF_data.mat','X');
 p_c_alpha = 2*alpha(end-2)*75/pi/pi/64;
 perception = [p_c_alpha/20:p_c_alpha/20:1.2*p_c_alpha];
 percep = perception(end-1);
-X = PDEsimulation_hotstart(alpha,percep,64,30,rho_0);
+X = PDEsimulation_hotstart(alpha(end-2),percep,64,30,rho_0);
 
 save('./newG_data.mat','X');
 
