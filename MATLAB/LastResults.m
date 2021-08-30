@@ -1,6 +1,6 @@
 %% Quick run simulations and then save them
 
-rho_0 = load('./cohesion_start_data.mat');
+rho_0 = load('./cohesion_start_64_data.mat');
 rho_0 = cell2mat(struct2cell(rho_0));
 
 alpha = linspace(pi/24,pi,24);
